@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2021-04-24
+- Post-publish README tweaks
+
 ## [1.0.0] - 2021-04-24
 ### Added
 - eslint-plugin-big-number-rules :)
