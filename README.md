@@ -17,7 +17,7 @@
     /></a>
 </p>
 
-[ [Configurable!](#eslintrc) | [Finance-safe?](#but-why) ]
+[ [Configurable!](#configuration) | [Finance-safe?](#but-why) ]
 
 ```sh
 # Installation:
@@ -181,7 +181,11 @@ Or pick-and-choose from the full list:
 }
 ```
 
-Want to use something other than `BigNumber`?
+## Configuration
+
+Want to use something other than `BigNumber`? Or use its shorter method-names such as `pow` instead of `exponentiatedBy`?
+
+The parser exposes just enough of its config to allow some decent customisation!
 
 ```json
 // .eslintrc
@@ -189,7 +193,7 @@ Want to use something other than `BigNumber`?
   "plugins": ["big-number-rules"],
   "settings": {
     "big-number-rules": {
-      "construct": "BigNumber",
+      "construct": "MyBigNumber",
       "sum": "sum",
       "arithmetic": {
         "+": "plus",
@@ -222,7 +226,10 @@ Want to use something other than `BigNumber`?
       },
       "number": {
         "toFixed": "decimalPlaces",
-        "parseFloat": "__CONSTRUCT__"
+        "parseFloat": "__CONSTRUCT__",
+        "toExponential": "toExponential",
+        "toPrecision": "toPrecision",
+        "toString": "toString"
       }
     }
   }
