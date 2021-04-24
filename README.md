@@ -1,6 +1,6 @@
 # eslint-plugin-big-number-rules
 
-### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#eslintrc)!) instead of native JavaScript arithmetic and Math functions:
+### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#configuration)!) instead of native JavaScript arithmetic and Math functions:
 
 <img src="./screenshot.gif" width="500" />
 
@@ -185,7 +185,7 @@ Or pick-and-choose from the full list:
 
 Want to use something other than `BigNumber`? Or use its shorter method-names such as `pow` instead of `exponentiatedBy`?
 
-The parser exposes just enough of its config to allow some decent customisation!
+The parser exposes just enough of its config to allow such customisation:
 
 ```json
 // .eslintrc
