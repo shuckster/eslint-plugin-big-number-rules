@@ -4,6 +4,8 @@
 
 ![screenshot](screenshot.gif)
 
+[ [Finance-safe?](#but-why) ]
+
 ```sh
 # Installation:
 $ pnpm i eslint-plugin-big-number-rules --save-dev
@@ -102,7 +104,7 @@ I'm not much of a hotshot with AST parsing, so you may encounter more weirdness 
 
 # But why?
 
-If you use floating-points for currency (instead of decimals like you should) libraries like [BigNumber](https://github.com/MikeMcl/bignumber.js/) help keep your code away from the binary floating-point pitfalls of [IEEE-754](https://medium.com/@magnusjt/how-to-handle-money-in-javascript-b954d612373c):
+If you use floating-points for currency (instead of decimals like you should) libraries like [BigNumber](https://github.com/MikeMcl/bignumber.js/) help keep your code away from the binary floating-point [pitfalls](https://medium.com/@magnusjt/how-to-handle-money-in-javascript-b954d612373c) of [IEEE-754](https://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency):
 
 ```js
 const sum = 0.1 + 0.2
