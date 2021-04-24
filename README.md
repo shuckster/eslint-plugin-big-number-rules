@@ -147,18 +147,29 @@ sum.toString() // You'll have to do the toString() yourself!
 
 After [installation](#eslint-plugin-big-number-rules), make the plugin available to your `eslint`:
 
-```js
+```json
 // .eslintrc
 {
   "plugins": ["big-number-rules"]
 }
 ```
 
-The full list of rules:
+Recommended rules will `warn` about everything:
 
-```js
+```json
 // .eslintrc
 {
+  "plugins": ["big-number-rules"],
+  "extends": ["plugin:big-number-rules/recommended"]
+}
+```
+
+Or pick-and-choose from the full list:
+
+```json
+// .eslintrc
+{
+  "plugins": ["big-number-rules"],
   "rules": {
     "big-number-rules/arithmetic": "warn",
     "big-number-rules/isNaN": "warn",
@@ -172,9 +183,10 @@ The full list of rules:
 
 Want to use something other than `BigNumber`?
 
-```js
+```json
 // .eslintrc
 {
+  "plugins": ["big-number-rules"],
   "settings": {
     "big-number-rules": {
       "construct": "BigNumber",
