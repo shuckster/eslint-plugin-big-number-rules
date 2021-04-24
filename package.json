@@ -1,0 +1,44 @@
+{
+  "name": "eslint-plugin-big-number-rules",
+  "version": "1.0.0",
+  "description": "Enforce finance-safe calculations using BigNumber instead of native JavaScript arithmetic and Math functions.",
+  "author": "Conan Theobald",
+  "license": "MIT",
+  "keywords": [
+    "big number",
+    "eslint plugin",
+    "ieee754",
+    "binary floating point",
+    "finance safe",
+    "currency safe"
+  ],
+  "homepage": "https://github.com/shuckster/eslint-plugin-big-number-rules",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shuckster/eslint-plugin-big-number-rules"
+  },
+  "bugs": {
+    "url": "https://github.com/shuckster/eslint-plugin-big-number-rules/issues",
+    "email": "bugs+big-number-rules@conans.co.uk"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*.js",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "perf": "node ./tests/perf.js",
+    "test": "node ./tests/lib/all.js",
+    "test:watch": "nodemon ./tests/lib/all.js"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "load-perf": "^0.2.0",
+    "nodemon": "^2.0.7"
+  }
+}
