@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.6] - 2021-04-24
+### Fixed
+- Settings overrides were referencing old namespace
+
 ## [1.0.5] - 2021-04-24
 ### Changed
 - Update README config link
