@@ -2,7 +2,7 @@
 
 ## ✊ Enforce 💰 *finance-safe* 🧷 calculations using [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#eslintrc)!) instead of native JavaScript arithmetic and Math functions:
 
-![screenshot](screenshot.gif)
+<img src="./screenshot.gif" width="500" />
 
 [ [Finance-safe?](#but-why) ]
 
