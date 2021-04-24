@@ -4,6 +4,19 @@
 
 <img src="./screenshot.gif" width="500" />
 
+<p>
+  <a href="https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/LICENSE">
+    <img
+      alt="MIT license"
+      src="https://img.shields.io/npm/l/eslint-plugin-big-number-rules?style=plastic"
+    /></a>
+  <a href="https://www.npmjs.com/package/eslint-plugin-big-number-rules">
+    <img
+      alt="Version"
+      src="https://img.shields.io/npm/v/eslint-plugin-big-number-rules?style=plastic"
+    /></a>
+</p>
+
 [ [Finance-safe?](#but-why) ]
 
 ```sh
