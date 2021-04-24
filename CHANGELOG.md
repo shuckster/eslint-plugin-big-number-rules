@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `toExponential`, `toPrecision`, `toString`
 
+### Updated
+- Instead of a function, you can now use a JSON-friendly array to configure the more detailed overriding of binary-expressions in `.eslintrc`. See the `<<` operator for reference.
+
 ## [1.0.3] - 2021-04-24
 ### Added
 - Recommended rules setting: `big-number-rules/recommended`

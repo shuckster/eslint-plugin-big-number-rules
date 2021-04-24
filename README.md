@@ -209,7 +209,8 @@ The parser exposes just enough of its config to allow some decent customisation!
         ">=": "isGreaterThanOrEqualTo",
         ">": "isGreaterThan",
         ">>": "shiftedBy",
-        ">>>": "shiftedBy"
+        ">>>": "shiftedBy",
+        "<<": ["${L}", "shiftedBy", "-${R}"]
       },
       "math": {
         "min": "minimum",
