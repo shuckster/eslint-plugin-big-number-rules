@@ -17,7 +17,7 @@
     /></a>
 </p>
 
-[ [Finance-safe?](#but-why) ]
+[ [Configurable!](#eslintrc) | [Finance-safe?](#but-why) ]
 
 ```sh
 # Installation:
@@ -82,7 +82,9 @@ BigNumber('2.1')
 
 ## What about Math.round(), ceil, floor?
 
-`BigNumber` sets its rounding-mode using a global setting. The plugin can't perform a replacement in this case, but it will warn you about it:
+`BigNumber` sets its rounding-mode using a setting in its constructor.
+
+The plugin can't perform a replacement in this case, but it will warn you about it:
 
 ```
 big-number-rules/rounding
@@ -117,7 +119,7 @@ I'm not much of a hotshot with AST parsing, so you may encounter more weirdness 
 
 # But why?
 
-If you use floating-points for currency (instead of decimals like you should) libraries like [BigNumber](https://github.com/MikeMcl/bignumber.js/) help keep your code away from the binary floating-point [pitfalls](https://medium.com/@magnusjt/how-to-handle-money-in-javascript-b954d612373c) of [IEEE-754](https://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency):
+If you use floating-points for currency (instead of decimals like you probably should) libraries like [BigNumber](https://github.com/MikeMcl/bignumber.js/) help keep your code away from the binary floating-point [pitfalls](https://medium.com/@magnusjt/how-to-handle-money-in-javascript-b954d612373c) of [IEEE-754](https://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency):
 
 ```js
 const sum = 0.1 + 0.2
@@ -128,7 +130,9 @@ sum
 // 0.30000000000000004
 ```
 
-This plugin lets you know what you've missed, and will auto-translate the above into:
+This is the classic example and is often cited, but there are other rare corner-cases that will eventually be caught some time after committing to a currency-unsafe solution.
+
+Using `BigNumber` is not so complicated, but requires discipline and vigilance to keep on top of. So an [eslint](https://eslint.org/) plugin to warn-about/auto-fix the issue seemed like a good idea:
 
 ```js
 const sum = BigNumber.sum(0.1, 0.2)
@@ -227,9 +231,12 @@ If you'd rather not change your entire accounting solution for the sake of an es
 
 Inspired by the work of these fine Internet folk:
 
+- [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) :)
 - [eslint-plugin-bignumber](https://github.com/fnando/eslint-plugin-bignumber)
 - [eslint-plugin-arithmetic](https://github.com/JonnyBurger/eslint-plugin-arithmetic)
 - [AST Explorer](https://astexplorer.net/)
+
+🙏
 
 ## License
 
