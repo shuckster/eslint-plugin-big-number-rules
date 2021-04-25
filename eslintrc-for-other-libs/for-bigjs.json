@@ -29,9 +29,9 @@
       },
       "supportsRound": true,
       "rounding": {
-        "floor": ["round", "${A}, 0"],
+        "round": ["round", "${A}, 1"],
         "ceil": ["round", "${A}, 3"],
-        "round": ["round", "${A}, 1"]
+        "floor": ["round", "${A}, 0"]
       },
       "number": {
         "toFixed": "dp",

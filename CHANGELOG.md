@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2021-04-25
+### Updated
+- README updated
+
 ## [1.3.0] - 2021-04-25
 ### Changed
 - Bundle to target node>=10 instead of 14
