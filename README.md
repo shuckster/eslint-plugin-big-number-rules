@@ -121,7 +121,7 @@ BigNumber('2.1')
 
 That works, just not for `bignumber.js`.
 
-Using the [big.js](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/eslintrc-for-other-libs/for-bigjs.json) config you'll get this though:
+The [big.js](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/eslintrc-for-other-libs/for-bigjs.json) config supports transformations:
 
 ```js
 // Math.round(1.5)
@@ -129,17 +129,12 @@ Using the [big.js](https://github.com/shuckster/eslint-plugin-big-number-rules/b
 // Math.floor(1.5)
 //
 // ...becomes:
-Big.round(1.5, 1)
-Big.round(1.5, 3)
-Big.round(1.5, 0)
-
-// Note:
-// 1 = half_up (round)
-// 3 = up (ceil)
-// 0 = down (floor)
+Big.round(1.5, 1) // 1 = half_up (round)
+Big.round(1.5, 3) // 3 = up (ceil)
+Big.round(1.5, 0) // 0 = down (floor)
 ```
 
-`bignumber.js` configures its rounding-mode by setting an option in its constructor. The plugin can't perform a replacement in this case, but it will warn you about it:
+However, `bignumber.js` configures its rounding-mode by setting an option in its constructor. The plugin can't perform a replacement in this case, so it warns you instead:
 
 ```
 big-number-rules/rounding
