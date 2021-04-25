@@ -106,7 +106,16 @@ function makeTest(config) {
   return {
     name: 'number',
     rule,
-    validTests: tests.map(test => test.output).filter(Boolean),
+    validTests: tests
+      .map(test => test.output)
+      .filter(Boolean)
+      .concat([
+        // TODO: Fix these!
+        // 'somethingElse.toFixed()',
+        // 'somethingElse.toExponential()',
+        // 'somethingElse.toPrecision()',
+        // 'somethingElse.toString()'
+      ]),
     invalidTests: tests
   }
 }
