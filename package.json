@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-big-number-rules",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Enforce finance-safe calculations using BigNumber instead of native JavaScript arithmetic and Math functions.",
   "author": "Conan Theobald",
   "license": "MIT",
