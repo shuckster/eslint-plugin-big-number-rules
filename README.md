@@ -96,6 +96,8 @@ BigNumber.set({
 })}
 ```
 
+*Update*: Since 1.1.0, `Math.round|ceil|floor` can be replaced in libraries that support an equivalent API method. See the [Big.js config]() and look for the `supportsRound` setting. :)
+
 ## Any caveats?
 
 You may need to tweak some of the generated output.
@@ -183,9 +185,9 @@ Or pick-and-choose from the full list:
 
 ## Configuration
 
-Want to use something other than `BigNumber`? Or use its shorter method-names such as `pow` instead of `exponentiatedBy`?
+Want to use something other than `BigNumber`? Or use its shorter method-names such as `pow` and `div` instead of `exponentiatedBy` and `dividedBy`?
 
-The parser exposes just enough of its config to allow such customisation:
+Here's a config that works with [Big.js](http://mikemcl.github.io/big.js/):
 
 ```json
 // .eslintrc
@@ -193,41 +195,43 @@ The parser exposes just enough of its config to allow such customisation:
   "plugins": ["big-number-rules"],
   "settings": {
     "big-number-rules": {
-      "construct": "MyBigNumber",
+      "construct": "Big",
+      "supportsSum": false,
       "sum": "sum",
       "arithmetic": {
         "+": "plus",
         "-": "minus",
-        "/": "dividedBy",
-        "*": "multipliedBy",
-        "**": "exponentiatedBy",
-        "%": "modulo",
-        "<": "isLessThan",
-        "<=": "isLessThanOrEqualTo",
-        "===": "isEqualTo",
-        "==": "isEqualTo",
-        ">=": "isGreaterThanOrEqualTo",
-        ">": "isGreaterThan",
-        ">>": "shiftedBy",
-        ">>>": "shiftedBy",
-        "<<": ["${L}", "shiftedBy", "-${R}"]
+        "/": "div",
+        "*": "times",
+        "**": "pow",
+        "%": "mod",
+        "<": "lt",
+        "<=": "lte",
+        "===": "eq",
+        "==": "eq",
+        ">=": "gte",
+        ">": "gt",
+        ">>": "NOT_SUPPORTED",
+        ">>>": "NOT_SUPPORTED",
+        "<<": ["${L}", "NOT_SUPPORTED", "-${R}"]
       },
       "math": {
-        "min": "minimum",
-        "max": "maximum",
-        "random": "random",
-        "abs": "absoluteValue",
-        "sign": "comparedTo",
-        "sqrt": "squareRoot"
+        "min": "min",
+        "max": "max",
+        "random": "NOT_SUPPORTED",
+        "abs": "abs",
+        "sign": ["__CONSTRUCT__(${A}).cmp(0)"],
+        "sqrt": "sqrt"
       },
+      "supportsRound": true,
       "rounding": {
-        "floor": "ROUND_FLOOR",
-        "ceil": "ROUND_CEIL",
-        "round": "ROUND_HALF_UP"
+        "floor": ["round", "${A}, 0"],
+        "ceil": ["round", "${A}, 3"],
+        "round": ["round", "${A}, 1"]
       },
       "number": {
-        "toFixed": "decimalPlaces",
-        "parseFloat": "__CONSTRUCT__",
+        "toFixed": "dp",
+        "parseFloat": ["__CONSTRUCT__(${A})"],
         "toExponential": "toExponential",
         "toPrecision": "toPrecision",
         "toString": "toString"
@@ -236,6 +240,12 @@ The parser exposes just enough of its config to allow such customisation:
   }
 }
 ```
+
+Find more examples in the [/eslintrc-for-other-libs](https://github.com/shuckster/eslint-plugin-big-number-rules/tree/master/eslintrc-for-other-libs/) folder.
+
+Please report an [issue](https://github.com/shuckster/eslint-plugin-big-number-rules/issues) if your particular lib does something differently!
+
+There can't be *that* many edge-cases, right? ;-)
 
 ## About
 
