@@ -1,0 +1,43 @@
+{
+  "plugins": ["big-number-rules"],
+  "settings": {
+    "big-number-rules": {
+      "construct": "BigNumber",
+      "supportsSum": true,
+      "sum": "sum",
+      "arithmetic": {
+        "+": "plus",
+        "-": "minus",
+        "/": "dividedBy",
+        "*": "multipliedBy",
+        "**": "exponentiatedBy",
+        "%": "modulo",
+        "<": "isLessThan",
+        "<=": "isLessThanOrEqualTo",
+        "===": "isEqualTo",
+        "==": "isEqualTo",
+        ">=": "isGreaterThanOrEqualTo",
+        ">": "isGreaterThan",
+        ">>": "shiftedBy",
+        ">>>": "shiftedBy",
+        "<<": ["${L}", "shiftedBy", "-${R}"]
+      },
+      "math": {
+        "min": "minimum",
+        "max": "maximum",
+        "random": "random",
+        "abs": "absoluteValue",
+        "sign": ["__CONSTRUCT__(${A}).comparedTo(0)"],
+        "sqrt": "squareRoot"
+      },
+      "supportsRound": false,
+      "number": {
+        "toFixed": "decimalPlaces",
+        "parseFloat": ["__CONSTRUCT__(${A})"],
+        "toExponential": "toExponential",
+        "toPrecision": "toPrecision",
+        "toString": "toString"
+      }
+    }
+  }
+}

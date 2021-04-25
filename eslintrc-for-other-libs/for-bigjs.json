@@ -1,0 +1,48 @@
+{
+  "plugins": ["big-number-rules"],
+  "settings": {
+    "big-number-rules": {
+      "construct": "Big",
+      "supportsSum": false,
+      "sum": "sum",
+      "arithmetic": {
+        "+": "plus",
+        "-": "minus",
+        "/": "div",
+        "*": "times",
+        "**": "pow",
+        "%": "mod",
+        "<": "lt",
+        "<=": "lte",
+        "===": "eq",
+        "==": "eq",
+        ">=": "gte",
+        ">": "gt",
+        ">>": "NOT_SUPPORTED",
+        ">>>": "NOT_SUPPORTED",
+        "<<": ["${L}", "NOT_SUPPORTED", "-${R}"]
+      },
+      "math": {
+        "min": "min",
+        "max": "max",
+        "random": "NOT_SUPPORTED",
+        "abs": "abs",
+        "sign": ["__CONSTRUCT__(${A}).cmp(0)"],
+        "sqrt": "sqrt"
+      },
+      "supportsRound": true,
+      "rounding": {
+        "floor": ["round", "${A}, 0"],
+        "ceil": ["round", "${A}, 3"],
+        "round": ["round", "${A}, 1"]
+      },
+      "number": {
+        "toFixed": "dp",
+        "parseFloat": ["__CONSTRUCT__(${A})"],
+        "toExponential": "toExponential",
+        "toPrecision": "toPrecision",
+        "toString": "toString"
+      }
+    }
+  }
+}
