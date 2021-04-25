@@ -110,7 +110,7 @@ function makeTest(config) {
       .map(test => test.output)
       .filter(Boolean)
       .concat([
-        // TODO: Fix these!
+        // TODO: Fix these? Is limiting them to only literals useful?
         // 'somethingElse.toFixed()',
         // 'somethingElse.toExponential()',
         // 'somethingElse.toPrecision()',
