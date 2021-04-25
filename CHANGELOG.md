@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2021-04-25
+### Added
+- Added some example settings files for different libraries.
+
+### Updated
+- Optionally prefer `plus` for libraries that don't support `sum` with `supportsSum` setting.
+
+- Can now offer replacements for `Math.round|ceil|floor` for libraries that support it.
+
+- Refactored test-suite so it will test the example settings files.
+
 ## [1.0.6] - 2021-04-24
 ### Fixed
 - Settings overrides were referencing old namespace
