@@ -4,7 +4,6 @@
     "big-number-rules": {
       "construct": "Big",
       "supportsSum": false,
-      "sum": "sum",
       "arithmetic": {
         "+": "plus",
         "-": "minus",
@@ -17,11 +16,9 @@
         "===": "eq",
         "==": "eq",
         ">=": "gte",
-        ">": "gt",
-        ">>": "NOT_SUPPORTED",
-        ">>>": "NOT_SUPPORTED",
-        "<<": ["${L}", "NOT_SUPPORTED", "-${R}"]
+        ">": "gt"
       },
+      "supportsBitwise": false,
       "math": {
         "min": "min",
         "max": "max",

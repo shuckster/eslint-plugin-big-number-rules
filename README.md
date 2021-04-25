@@ -197,7 +197,6 @@ Here's a config that works with [Big.js](http://mikemcl.github.io/big.js/):
     "big-number-rules": {
       "construct": "Big",
       "supportsSum": false,
-      "sum": "sum",
       "arithmetic": {
         "+": "plus",
         "-": "minus",
@@ -210,11 +209,9 @@ Here's a config that works with [Big.js](http://mikemcl.github.io/big.js/):
         "===": "eq",
         "==": "eq",
         ">=": "gte",
-        ">": "gt",
-        ">>": "NOT_SUPPORTED",
-        ">>>": "NOT_SUPPORTED",
-        "<<": ["${L}", "NOT_SUPPORTED", "-${R}"]
+        ">": "gt"
       },
+      "supportsBitwise": false,
       "math": {
         "min": "min",
         "max": "max",
