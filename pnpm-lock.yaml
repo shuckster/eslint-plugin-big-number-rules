@@ -2,11 +2,13 @@ lockfileVersion: 5.3
 
 specifiers:
   eslint: ^7.25.0
+  glob: ^7.1.6
   load-perf: ^0.2.0
   nodemon: ^2.0.7
 
 devDependencies:
   eslint: 7.25.0
+  glob: 7.1.6
   load-perf: 0.2.0
   nodemon: 2.0.7
 

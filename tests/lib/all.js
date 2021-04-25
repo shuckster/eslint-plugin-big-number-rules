@@ -1,6 +1,81 @@
-require('./arithmetic')
-require('./is-nan')
-require('./math')
-require('./number')
-require('./parse-float')
-require('./rounding')
+const path = require('path')
+const RuleTester = require('eslint').RuleTester
+
+const {
+  baseEslintSettings,
+  configsPath,
+  getExampleEslintConfigsForOtherLibs,
+  loadJsonFile,
+  bigNumberRules,
+  makePromise,
+  filter,
+  map
+} = require('./common')
+
+const suites = [
+  require('./arithmetic'),
+  require('./is-nan'),
+  require('./math'),
+  require('./number'),
+  require('./parse-float'),
+  require('./rounding')
+]
+
+function main() {
+  loadJsonFile(path.join(configsPath, 'default.json')).then(
+    defaultEslintSettings => {
+      runTestSuitesWithEslintConfig(defaultEslintSettings).then(() => {
+        console.log('Tests finished using: DEFAULT')
+        return runTestSuitesAgainstCustomEslintConfigs()
+      })
+    }
+  )
+}
+
+function runTestSuitesWithEslintConfig(customEslintSettings) {
+  return Promise.allSettled(
+    suites.map(({ makeTest }) => {
+      const [promise, resolve, reject] = makePromise()
+
+      const eslintSettings = {
+        ...baseEslintSettings,
+        ...customEslintSettings
+      }
+
+      const config = bigNumberRules(eslintSettings)
+      const { name, rule, invalidTests, validTests } = makeTest(config)
+      const ruleTester = new RuleTester(eslintSettings)
+
+      try {
+        ruleTester.run(name, rule, {
+          valid: validTests,
+          invalid: invalidTests
+        })
+        resolve()
+      } catch (e) {
+        reject(e)
+      }
+
+      return promise
+    })
+  )
+    .then(filter(result => result.status === 'rejected'))
+    .then(map(result => result.reason))
+    .then(errors => errors.forEach(error => console.error(error)))
+}
+
+function runTestSuitesAgainstCustomEslintConfigs() {
+  return getExampleEslintConfigsForOtherLibs().then(customEslintConfigs =>
+    Promise.all(
+      customEslintConfigs.map(customConfig => {
+        return runTestSuitesWithEslintConfig(customConfig).then(() => {
+          console.log(
+            `Tests finished using: ${customConfig.settings['big-number-rules'].construct}`
+          )
+        })
+      })
+    )
+  )
+}
+
+main()
