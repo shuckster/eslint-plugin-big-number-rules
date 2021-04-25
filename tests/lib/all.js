@@ -22,14 +22,14 @@ const suites = [
 ]
 
 function main() {
-  loadJsonFile(path.join(configsPath, 'default.json')).then(
-    defaultEslintSettings => {
+  loadJsonFile(path.join(configsPath, 'default.json'))
+    .then(defaultEslintSettings =>
       runTestSuitesWithEslintConfig(defaultEslintSettings).then(() => {
         console.log('Tests finished using: DEFAULT')
         return runTestSuitesAgainstCustomEslintConfigs()
       })
-    }
-  )
+    )
+    .finally(() => console.log(new Date().toTimeString()))
 }
 
 function runTestSuitesWithEslintConfig(customEslintSettings) {
@@ -53,7 +53,7 @@ function runTestSuitesWithEslintConfig(customEslintSettings) {
         })
         resolve()
       } catch (e) {
-        reject(e)
+        reject(`${e}\n\\_ ${config.construct} // ${name}\n`)
       }
 
       return promise
@@ -67,13 +67,13 @@ function runTestSuitesWithEslintConfig(customEslintSettings) {
 function runTestSuitesAgainstCustomEslintConfigs() {
   return getExampleEslintConfigsForOtherLibs().then(customEslintConfigs =>
     Promise.all(
-      customEslintConfigs.map(customConfig => {
-        return runTestSuitesWithEslintConfig(customConfig).then(() => {
+      customEslintConfigs.map(customConfig =>
+        runTestSuitesWithEslintConfig(customConfig).finally(() =>
           console.log(
             `Tests finished using: ${customConfig.settings['big-number-rules'].construct}`
           )
-        })
-      })
+        )
+      )
     )
   )
 }
