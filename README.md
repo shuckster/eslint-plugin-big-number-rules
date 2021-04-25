@@ -121,7 +121,7 @@ BigNumber('2.1')
 
 That works, just not for `bignumber.js`.
 
-Using the [Big.js](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/eslintrc-for-other-libs/for-bigjs.json) config you'll get this though:
+Using the [big.js](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/eslintrc-for-other-libs/for-bigjs.json) config you'll get this though:
 
 ```js
 // Math.round(1.5)

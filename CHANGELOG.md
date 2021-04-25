@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.2] - 2021-04-25
 ### Fixed
-- Missing README link to example .eslintrc for Big.js
+- Missing README link to example .eslintrc for big.js
 
 ## [1.2.0] - 2021-04-25
 ### Updated
