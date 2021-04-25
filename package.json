@@ -22,24 +22,35 @@
     "email": "bugs+big-number-rules@conans.co.uk"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=10"
   },
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "files": [
-    "lib/**/*.js",
+    "dist/**/*.js",
     "CHANGELOG.md",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
+    "build:all": "pnpm run build:rollup",
+    "build:rollup": "rollup --config ./build-config/rollup.config.js",
+    "build:esbuild": "node ./build-config/esbuild.js",
     "perf": "node ./tests/perf.js",
     "test": "node ./tests/lib/all.js",
     "test:watch": "nodemon ./tests/lib/all.js"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "esbuild": "^0.11.14",
     "eslint": "^7.25.0",
     "glob": "^7.1.6",
     "load-perf": "^0.2.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup": "^2.45.2"
   }
 }
