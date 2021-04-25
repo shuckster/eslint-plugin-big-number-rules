@@ -5,8 +5,8 @@ module.exports = {
 const { expectingErrors } = require('./common')
 const rule = require('../../lib/rules/arithmetic')
 
-function extractMethods(arithmetic) {
-  return Object.entries(arithmetic).reduce((acc, [key, value]) => {
+function extractMethods(ops) {
+  return Object.entries(ops).reduce((acc, [key, value]) => {
     const method = Array.isArray(value) ? value[1] : value
     return {
       ...acc,
@@ -16,7 +16,19 @@ function extractMethods(arithmetic) {
 }
 
 function makeTest(config) {
-  const { construct: BigNumber, arithmetic, sum, supportsSum = true } = config
+  const {
+    construct: BigNumber,
+    arithmetic,
+    bitwise = {},
+    sum = 'sum',
+    supportsSum = true,
+    supportsBitwise = true
+  } = config
+
+  const methods = {
+    ...arithmetic,
+    ...bitwise
+  }
 
   const {
     ['+']: plus,
@@ -33,7 +45,7 @@ function makeTest(config) {
     ['>']: isGreaterThan,
     ['>>']: shiftedBy,
     ['<<']: unshiftedBy
-  } = extractMethods(arithmetic)
+  } = extractMethods(methods)
 
   const sumTests = supportsSum
     ? [
@@ -61,11 +73,87 @@ function makeTest(config) {
         }
       ]
 
+  const bitwiseTests = supportsBitwise
+    ? [
+        {
+          code: `1 >>> 2;`,
+          output: `${BigNumber}(1).${shiftedBy}(2);`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `1 >> 2;`,
+          output: `${BigNumber}(1).${shiftedBy}(2);`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `1 << 2;`,
+          output: `${BigNumber}(1).${shiftedBy}(-2);`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `1 << two();`,
+          output: `${BigNumber}(1).${unshiftedBy}(-two());`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) >> ${BigNumber}(2);`,
+          output: `${BigNumber}(1).${shiftedBy}(${BigNumber}(2));`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) >>> ${BigNumber}(2);`,
+          output: `${BigNumber}(1).${shiftedBy}(${BigNumber}(2));`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) << ${BigNumber}(2);`,
+          output: `${BigNumber}(1).${unshiftedBy}(-${BigNumber}(2));`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) << ${BigNumber}(two());`,
+          output: `${BigNumber}(1).${unshiftedBy}(-${BigNumber}(two()));`,
+          errors: expectingErrors(1)
+        }
+      ]
+    : [
+        {
+          code: `1 >>> 2;`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `1 << 2;`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `1 << two();`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) >> ${BigNumber}(2);`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) >>> ${BigNumber}(2);`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) << ${BigNumber}(2);`,
+          errors: expectingErrors(1)
+        },
+        {
+          code: `${BigNumber}(1) << ${BigNumber}(two());`,
+          errors: expectingErrors(1)
+        }
+      ]
+
   const tests = [
+    ...sumTests,
+    ...bitwiseTests,
+
     //
     // Arithmetic
     //
-    ...sumTests,
     {
       code: `1 - 2;`,
       output: `${BigNumber}(1).${minus}(2);`,
@@ -119,26 +207,6 @@ function makeTest(config) {
     {
       code: `1 > 2;`,
       output: `${BigNumber}(1).${isGreaterThan}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 >> 2;`,
-      output: `${BigNumber}(1).${shiftedBy}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 >>> 2;`,
-      output: `${BigNumber}(1).${shiftedBy}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 << 2;`,
-      output: `${BigNumber}(1).${shiftedBy}(-2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 << two();`,
-      output: `${BigNumber}(1).${unshiftedBy}(-two());`,
       errors: expectingErrors(1)
     },
 
@@ -203,26 +271,6 @@ function makeTest(config) {
     {
       code: `${BigNumber}(1) > ${BigNumber}(2);`,
       output: `${BigNumber}(1).${isGreaterThan}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) >> ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${shiftedBy}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) >>> ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${shiftedBy}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) << ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${unshiftedBy}(-${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) << ${BigNumber}(two());`,
-      output: `${BigNumber}(1).${unshiftedBy}(-${BigNumber}(two()));`,
       errors: expectingErrors(1)
     }
   ]
