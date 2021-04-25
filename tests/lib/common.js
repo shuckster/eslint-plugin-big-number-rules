@@ -77,7 +77,9 @@ function globConfigForOtherLibs() {
 
 function getExampleEslintConfigsForOtherLibs() {
   return globConfigForOtherLibs().then(files =>
-    Promise.all(files.map(loadJsonFile))
+    Promise.all(
+      files.filter(file => !file.endsWith('/default.json')).map(loadJsonFile)
+    )
   )
 }
 
