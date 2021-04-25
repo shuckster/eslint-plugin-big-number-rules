@@ -96,7 +96,7 @@ BigNumber.set({
 })}
 ```
 
-*Update*: Since 1.1.0, `Math.round|ceil|floor` can be replaced in libraries that support an equivalent API method. See the [Big.js config]() and look for the `supportsRound` setting. :)
+*Update*: Since 1.1.0, `Math.round|ceil|floor` can be replaced in libraries that support an equivalent API method. See the [Big.js config](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/eslintrc-for-other-libs/for-bigjs.json) and look for the `supportsRound` setting. :)
 
 ## Any caveats?
 

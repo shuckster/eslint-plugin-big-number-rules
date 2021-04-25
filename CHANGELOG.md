@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2021-04-25
+### Fixed
+- Missing README link to example .eslintrc for Big.js
+
 ## [1.2.0] - 2021-04-25
 ### Updated
 - Bitwise settings are now their own thing
