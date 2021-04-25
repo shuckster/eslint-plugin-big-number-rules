@@ -1,6 +1,6 @@
 # eslint-plugin-big-number-rules
 
-### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#configuration)!) instead of native JavaScript arithmetic and Math functions:
+### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [bignumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#configuration)!) instead of native JavaScript arithmetic and Math functions:
 
 <img src="./screenshot.gif" width="500" />
 
@@ -119,7 +119,7 @@ BigNumber('2.1')
 
 ## What about Math.round(), ceil, floor?
 
-That works, just not for `BigNumber.js`.
+That works, just not for `bignumber.js`.
 
 Using the [Big.js](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/eslintrc-for-other-libs/for-bigjs.json) config you'll get this though:
 
@@ -139,7 +139,7 @@ Big.round(1.5, 0)
 // 0 = down (floor)
 ```
 
-`BigNumber` configures its rounding-mode by setting an option in its constructor. The plugin can't perform a replacement in this case, but it will warn you about it:
+`bignumber.js` configures its rounding-mode by setting an option in its constructor. The plugin can't perform a replacement in this case, but it will warn you about it:
 
 ```
 big-number-rules/rounding
@@ -176,9 +176,9 @@ I'm not much of a hotshot with AST parsing, so you may encounter more weirdness 
 
 # Customisation
 
-Want to use something other than `BigNumber`? Or use its shorter method-names such as `pow` and `div` instead of `exponentiatedBy` and `dividedBy`?
+Want to use something other than `bignumber.js`? Or use its shorter method-names such as `pow` and `div` instead of `exponentiatedBy` and `dividedBy`?
 
-Here's a config that works with [Big.js](http://mikemcl.github.io/big.js/):
+Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
 
 ```json
 // .eslintrc
@@ -237,7 +237,7 @@ There can't be *that* many edge-cases, right? ;-)
 
 # But why?
 
-If you use floating-points for currency (instead of whole-numbers like you probably should) libraries like [BigNumber](https://github.com/MikeMcl/bignumber.js/) help keep your code away from the binary floating-point [pitfalls](https://medium.com/@magnusjt/how-to-handle-money-in-javascript-b954d612373c) of [IEEE-754](https://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency):
+If you use floating-points for currency (instead of whole-numbers like you probably should) libraries like [bignumber.js](https://github.com/MikeMcl/bignumber.js/) help keep your code away from the binary floating-point [pitfalls](https://medium.com/@magnusjt/how-to-handle-money-in-javascript-b954d612373c) of [IEEE-754](https://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency):
 
 ```js
 const sum = 0.1 + 0.2
@@ -258,7 +258,7 @@ BigNumber(sum).isEqualTo(0.3)
 // true
 ```
 
-Using `BigNumber` isn't complicated, but it does require a little discipline and vigilance to keep on top of, so an [eslint](https://eslint.org/) plugin to warn-about the use of JavaScript's native-math methods, and also offer to fill-in alternatives, seemed like a good way to do that.
+Using `bignumber.js` isn't complicated, but it does require a little discipline and vigilance to keep on top of, so an [eslint](https://eslint.org/) plugin to warn-about the use of JavaScript's native-math methods, and also offer to fill-in alternatives, seemed like a good way to do that.
 
 # Credits
 
@@ -266,7 +266,7 @@ Using `BigNumber` isn't complicated, but it does require a little discipline and
 
 He was inspired by the work of these fine Internet folk:
 
-- [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) :)
+- [bignumber.js](https://github.com/MikeMcl/bignumber.js/) :)
 - [eslint-plugin-bignumber](https://github.com/fnando/eslint-plugin-bignumber)
 - [eslint-plugin-arithmetic](https://github.com/JonnyBurger/eslint-plugin-arithmetic)
 - [AST Explorer](https://astexplorer.net/)
