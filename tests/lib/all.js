@@ -24,15 +24,14 @@ const suites = [
 function main() {
   loadJsonFile(path.join(configsPath, 'default.json'))
     .then(defaultEslintSettings =>
-      runTestSuitesWithEslintConfig(defaultEslintSettings).then(() => {
-        console.log('Tests finished using: DEFAULT')
-        return runTestSuitesAgainstCustomEslintConfigs()
-      })
+      testAllSuitesAgainstEslintConfig(defaultEslintSettings)
+        .then(logWhenDoneWith())
+        .then(runTestSuitesAgainstCustomEslintConfigs)
     )
     .finally(() => console.log(new Date().toTimeString()))
 }
 
-function runTestSuitesWithEslintConfig(customEslintSettings) {
+function testAllSuitesAgainstEslintConfig(customEslintSettings) {
   return Promise.allSettled(
     suites.map(({ makeTest }) => {
       const [promise, resolve, reject] = makePromise()
@@ -65,17 +64,23 @@ function runTestSuitesWithEslintConfig(customEslintSettings) {
 }
 
 function runTestSuitesAgainstCustomEslintConfigs() {
-  return getExampleEslintConfigsForOtherLibs().then(customEslintConfigs =>
-    Promise.all(
-      customEslintConfigs.map(customConfig =>
-        runTestSuitesWithEslintConfig(customConfig).finally(() =>
-          console.log(
-            `Tests finished using: ${customConfig.settings['big-number-rules'].construct}`
-          )
-        )
-      )
+  return getExampleEslintConfigsForOtherLibs().then(runTestsAgainstAll)
+
+  function runTestsAgainstAll(configs) {
+    return Promise.all(configs.map(runTestsAgainstThis))
+  }
+
+  function runTestsAgainstThis(config) {
+    return testAllSuitesAgainstEslintConfig(config).finally(
+      logWhenDoneWith(config)
     )
-  )
+  }
+}
+
+function logWhenDoneWith(config) {
+  const { construct = 'DEFAULT' } = config?.settings['big-number-rules'] || {}
+  const message = `Tests finished using: ${construct}`
+  return () => console.log(message)
 }
 
 main()
