@@ -1,6 +1,6 @@
 # eslint-plugin-big-number-rules
 
-### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [bignumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#configuration)!) instead of native JavaScript arithmetic and Math functions:
+### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [bignumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#customisation)!) instead of native JavaScript arithmetic and Math functions:
 
 <img src="./screenshot.gif" width="500" />
 
