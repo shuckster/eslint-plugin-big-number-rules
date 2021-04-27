@@ -4,7 +4,7 @@ specifiers:
   '@rollup/plugin-commonjs': ^18.0.0
   '@rollup/plugin-json': ^4.1.0
   '@rollup/plugin-node-resolve': ^11.2.1
-  esbuild: ^0.11.14
+  esbuild: ^0.11.15
   eslint: ^7.25.0
   glob: ^7.1.6
   load-perf: ^0.2.0
@@ -18,7 +18,7 @@ devDependencies:
   '@rollup/plugin-commonjs': 18.0.0_rollup@2.45.2
   '@rollup/plugin-json': 4.1.0_rollup@2.45.2
   '@rollup/plugin-node-resolve': 11.2.1_rollup@2.45.2
-  esbuild: 0.11.14
+  esbuild: 0.11.15
   eslint: 7.25.0
   glob: 7.1.6
   load-perf: 0.2.0
@@ -143,14 +143,14 @@ packages:
     resolution: {integrity: sha512-c5ciR06jK8u9BstrmJyO97m+klJrrhCf9u3rLu3DEAJBirxRqSCvDQoYKmxuYwQI5SZChAWu+tq9oVlGRuzPAg==}
     dev: true
 
-  /@types/node/14.14.41:
-    resolution: {integrity: sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==}
+  /@types/node/15.0.0:
+    resolution: {integrity: sha512-YN1d+ae2MCb4U0mMa+Zlb5lWTdpFShbAj5nmte6lel27waMMBfivrm0prC16p/Di3DyTrmerrYUT8/145HXxVw==}
     dev: true
 
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 14.14.41
+      '@types/node': 15.0.0
     dev: true
 
   /abbrev/1.1.1:
@@ -742,8 +742,8 @@ packages:
       prr: 1.0.1
     dev: true
 
-  /esbuild/0.11.14:
-    resolution: {integrity: sha512-ejheEPkqhq5y0LM9rG9e+3yDihPtqeeE4NZmG7VQiSGJ3CjO4HvPOHmhhttSksfSztjLAGo2+0/zSIvlqj4JOQ==}
+  /esbuild/0.11.15:
+    resolution: {integrity: sha512-Hh40byWZZgYbiLhcoOWiOUIy8yUYQeCEA4F9feWytToD2jGfJ1X4VPf5dsqj6vRL29H3YmFqZsxIJa5q0ifB3g==}
     hasBin: true
     requiresBuild: true
     dev: true
@@ -1264,7 +1264,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 14.14.41
+      '@types/node': 15.0.0
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: true
@@ -1909,7 +1909,7 @@ packages:
       jest-worker: 26.6.2
       rollup: 2.45.2
       serialize-javascript: 4.0.0
-      terser: 5.6.1
+      terser: 5.7.0
     dev: true
 
   /rollup-pluginutils/2.8.2:
@@ -2143,8 +2143,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /terser/5.6.1:
-    resolution: {integrity: sha512-yv9YLFQQ+3ZqgWCUk+pvNJwgUTdlIxUk1WTN+RnaFJe2L7ipG2csPT0ra2XRm7Cs8cxN7QXmK1rFzEwYEQkzXw==}
+  /terser/5.7.0:
+    resolution: {integrity: sha512-HP5/9hp2UaZt5fYkuhNBR8YyRcT8juw8+uFbAme53iN9hblvKnLUTKkmwJG6ocWpIKf8UK4DoeWG4ty0J6S6/g==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
