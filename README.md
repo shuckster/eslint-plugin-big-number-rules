@@ -17,7 +17,7 @@
     /></a>
 </p>
 
-[ [Customisable!](#customisation) | [Finance-safe?](#but-why) ]
+[ [Customisable!](#customisation) | [Finance-safe?](#but-why) | [ Noisy! ](#limiting-the-number-of-warnings)]
 
 ```sh
 # Installation:
@@ -148,7 +148,37 @@ BigNumber.set({
 
 Look for the `supportsRound` setting in the example configs.
 
-## Any other caveats?
+# Limiting the number of warnings
+
+When enabling this plugin on a large project you will likely see looooads of warnings. It's not like we use `===` just for arithmetic, right? :)
+
+There are a few strategies we can employ to keep the number of warnings down to something useful:
+
+1. Read all of the warnings and address the ones that need addressing
+
+2. Add line-by-line and file-by-file ignore comments
+
+3. Centralise your calculations into a few files only
+
+Taken in-order I think these constitute a good approach to ending up with a finance-safe codebase: Identify what needs fixing, fix them, and refactor the calculations as you go into more centralised places.
+
+For example, put calculations in `*.calc.js` files and permit `big-number-rules` for just those ones using `overrides`:
+
+```json
+// .eslintrc
+{
+  "plugins": ["big-number-rules"],
+  "overrides": [
+    {
+      "files": ["src/**/*.calc.js"],
+      "extends": ["plugin:big-number-rules/recommended"],
+      // "rules": { ... }
+    }
+  ]
+}
+```
+
+# Any other caveats?
 
 You may need to tweak some of the generated output.
 
