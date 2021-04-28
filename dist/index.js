@@ -1,6 +1,6 @@
 /*
  * eslint-plugin-big-number-rules
- * v1.3.3
+ * v1.3.4
  * https://github.com/shuckster/eslint-plugin-big-number-rules
  * License: MIT
  */
