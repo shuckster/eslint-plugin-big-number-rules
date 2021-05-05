@@ -11,7 +11,9 @@
         "/": "dividedBy",
         "*": "multipliedBy",
         "**": "exponentiatedBy",
-        "%": "modulo",
+        "%": "modulo"
+      },
+      "comparison": {
         "<": "isLessThan",
         "<=": "isLessThanOrEqualTo",
         "===": "isEqualTo",

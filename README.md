@@ -219,7 +219,9 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
         "/": "div",
         "*": "times",
         "**": "pow",
-        "%": "mod",
+        "%": "mod"
+      },
+      "comparison": {
         "<": "lt",
         "<=": "lte",
         "===": "eq",

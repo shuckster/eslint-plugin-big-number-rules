@@ -11,7 +11,9 @@
         "/": "div",
         "*": "times",
         "**": "pow",
-        "%": "mod",
+        "%": "mod"
+      },
+      "comparison": {
         "<": "isLessThan",
         "<=": "isLessThanOrEqualTo",
         "===": "isEqualTo",

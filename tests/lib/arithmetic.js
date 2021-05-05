@@ -19,6 +19,7 @@ function makeTest(config) {
   const {
     construct: BigNumber,
     arithmetic,
+    comparison,
     bitwise = {},
     sum = 'sum',
     supportsSum = true,
@@ -27,6 +28,7 @@ function makeTest(config) {
 
   const methods = {
     ...arithmetic,
+    ...comparison,
     ...bitwise
   }
 
