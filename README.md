@@ -17,7 +17,7 @@
     /></a>
 </p>
 
-[ [Customisable!](#customisation) | [Finance-safe?](#but-why) | [ Noisy! ](#limiting-the-number-of-warnings)]
+[ [Customisable!](#customisation) | [ Noisy! ](#limiting-the-number-of-warnings) | [Finance-safe?](#but-why) ]
 
 ```sh
 # Installation:

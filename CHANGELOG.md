@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2021-05-05
+### Changed
+- Move comparison-operators into their own sub-config. No rule-changes
+
 ## [1.3.4] - 2021-04-26
 ### Updated
 - README updates + corrections, dep-updates
