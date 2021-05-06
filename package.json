@@ -43,7 +43,7 @@
     "@rollup/plugin-commonjs": "^18.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
-    "esbuild": "^0.11.18",
+    "esbuild": "^0.11.19",
     "eslint": "^7.25.0",
     "glob": "^7.1.6",
     "load-perf": "^0.2.0",

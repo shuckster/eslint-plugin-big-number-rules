@@ -53,7 +53,13 @@ function testAllSuitesAgainstEslintConfig(customEslintSettings) {
         })
         resolve()
       } catch (e) {
-        reject(`${e}\n\\_ ${config.construct} // ${name}\n`)
+        reject(
+          `${e}\n\\_ ${config.construct} // ${name}\nrule: ${JSON.stringify(
+            rule,
+            null,
+            2
+          )}\n`
+        )
       }
 
       return promise
