@@ -2,7 +2,7 @@
 
 ### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [bignumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#customisation)!) instead of native JavaScript arithmetic and Math functions:
 
-<img src="./screenshot.gif" width="500" />
+<img alt="Video of plugin-usage in VSCode" src="./screenshot.gif" width="500" />
 
 <p>
   <a href="https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/LICENSE">
