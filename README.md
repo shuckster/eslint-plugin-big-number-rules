@@ -53,6 +53,7 @@ Recommended rules will `warn` about everything:
   "plugins": ["big-number-rules"],
   "rules": {
     "big-number-rules/arithmetic": "warn",
+    "big-number-rules/assignment": "warn",
     "big-number-rules/isNaN": "warn",
     "big-number-rules/math": "warn",
     "big-number-rules/number": "warn",
@@ -220,6 +221,14 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
         "*": "times",
         "**": "pow",
         "%": "mod"
+      },
+      "assignment": {
+        "+=": "plus",
+        "-=": "minus",
+        "/=": "div",
+        "*=": "times",
+        "**=": "pow",
+        "%=": "mod"
       },
       "comparison": {
         "<": "lt",

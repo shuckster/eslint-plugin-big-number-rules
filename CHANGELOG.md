@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2021-05-06
+### Added
+- Rules for assignment-expressions (+=, -=, etc.)
+  (big-number-rules/assignment)
+
 ## [1.4.0] - 2021-05-05
 ### Changed
 - Move comparison-operators into their own sub-config. No rule-changes

@@ -13,6 +13,17 @@
         "**": "pow",
         "%": "mod"
       },
+      "assignment": {
+        "+=": "plus",
+        "-=": "minus",
+        "/=": "div",
+        "*=": "times",
+        "**=": "pow",
+        "%=": "mod",
+        ">>=": "shiftedBy",
+        ">>>=": "shiftedBy",
+        "<<=": ["${L}", "shiftedBy", "-${R}"]
+      },
       "comparison": {
         "<": "isLessThan",
         "<=": "isLessThanOrEqualTo",

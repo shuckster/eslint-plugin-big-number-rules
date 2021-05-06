@@ -12,6 +12,14 @@
         "**": "pow",
         "%": "mod"
       },
+      "assignment": {
+        "+=": "plus",
+        "-=": "minus",
+        "/=": "div",
+        "*=": "times",
+        "**=": "pow",
+        "%=": "mod"
+      },
       "comparison": {
         "<": "lt",
         "<=": "lte",

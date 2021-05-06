@@ -14,6 +14,7 @@ const {
 
 const suites = [
   require('./arithmetic'),
+  require('./assignment'),
   require('./is-nan'),
   require('./math'),
   require('./number'),

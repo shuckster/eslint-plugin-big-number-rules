@@ -13,6 +13,17 @@
         "**": "exponentiatedBy",
         "%": "modulo"
       },
+      "assignment": {
+        "+=": "plus",
+        "-=": "minus",
+        "/=": "dividedBy",
+        "*=": "multipliedBy",
+        "**=": "exponentiatedBy",
+        "%=": "modulo",
+        ">>=": "shiftedBy",
+        ">>>=": "shiftedBy",
+        "<<=": ["${L}", "shiftedBy", "-${R}"]
+      },
       "comparison": {
         "<": "isLessThan",
         "<=": "isLessThanOrEqualTo",
