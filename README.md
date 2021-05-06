@@ -144,7 +144,7 @@ big-number-rules/rounding
 
 BigNumber.set({
   ROUNDING_MODE: BigNumber.ROUND_HALF_UP
-})}
+})
 ```
 
 Look for the `supportsRound` setting in the example configs.

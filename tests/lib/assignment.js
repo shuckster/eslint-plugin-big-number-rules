@@ -35,22 +35,22 @@ function makeTest(config) {
     ? [
         {
           code: `a >>>= 2;`,
-          output: `${BigNumber}(a).${shiftedBy}(2);`,
+          output: `a = ${BigNumber}(a).${shiftedBy}(2);`,
           errors: expectingErrors(1)
         },
         {
           code: `a >>= 2;`,
-          output: `${BigNumber}(a).${shiftedBy}(2);`,
+          output: `a = ${BigNumber}(a).${shiftedBy}(2);`,
           errors: expectingErrors(1)
         },
         {
           code: `a <<= 2;`,
-          output: `${BigNumber}(a).${shiftedBy}(-2);`,
+          output: `a = ${BigNumber}(a).${shiftedBy}(-2);`,
           errors: expectingErrors(1)
         },
         {
           code: `a <<= two();`,
-          output: `${BigNumber}(a).${unshiftedBy}(-two());`,
+          output: `a = ${BigNumber}(a).${unshiftedBy}(-two());`,
           errors: expectingErrors(1)
         }
       ]
@@ -77,32 +77,32 @@ function makeTest(config) {
     //
     {
       code: `a += 2;`,
-      output: `${BigNumber}(a).${plus}(2);`,
+      output: `a = ${BigNumber}(a).${plus}(2);`,
       errors: expectingErrors(1)
     },
     {
       code: `a -= 2;`,
-      output: `${BigNumber}(a).${minus}(2);`,
+      output: `a = ${BigNumber}(a).${minus}(2);`,
       errors: expectingErrors(1)
     },
     {
       code: `a /= 2;`,
-      output: `${BigNumber}(a).${dividedBy}(2);`,
+      output: `a = ${BigNumber}(a).${dividedBy}(2);`,
       errors: expectingErrors(1)
     },
     {
       code: `a *= 2;`,
-      output: `${BigNumber}(a).${multipliedBy}(2);`,
+      output: `a = ${BigNumber}(a).${multipliedBy}(2);`,
       errors: expectingErrors(1)
     },
     {
       code: `a **= 2;`,
-      output: `${BigNumber}(a).${exponentiatedBy}(2);`,
+      output: `a = ${BigNumber}(a).${exponentiatedBy}(2);`,
       errors: expectingErrors(1)
     },
     {
       code: `a %= 2;`,
-      output: `${BigNumber}(a).${modulo}(2);`,
+      output: `a = ${BigNumber}(a).${modulo}(2);`,
       errors: expectingErrors(1)
     }
   ]
