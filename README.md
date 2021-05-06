@@ -214,6 +214,8 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
     "big-number-rules": {
       "construct": "Big",
       "supportsSum": false,
+      "supportsBitwise": false,
+      "supportsRound": true,
       "arithmetic": {
         "+": "plus",
         "-": "minus",
@@ -238,7 +240,6 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
         ">=": "gte",
         ">": "gt"
       },
-      "supportsBitwise": false,
       "math": {
         "min": "min",
         "max": "max",
@@ -247,11 +248,10 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
         "sign": ["__CONSTRUCT__(${A}).cmp(0)"],
         "sqrt": "sqrt"
       },
-      "supportsRound": true,
       "rounding": {
-        "floor": ["round", "${A}, 0"],
+        "round": ["round", "${A}, 1"],
         "ceil": ["round", "${A}, 3"],
-        "round": ["round", "${A}, 1"]
+        "floor": ["round", "${A}, 0"]
       },
       "number": {
         "toFixed": "dp",

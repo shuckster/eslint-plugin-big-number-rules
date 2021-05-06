@@ -4,6 +4,8 @@
     "big-number-rules": {
       "construct": "BigNumber",
       "supportsSum": true,
+      "supportsBitwise": true,
+      "supportsRound": false,
       "sum": "sum",
       "arithmetic": {
         "+": "plus",
@@ -32,7 +34,6 @@
         ">=": "isGreaterThanOrEqualTo",
         ">": "isGreaterThan"
       },
-      "supportsBitwise": true,
       "bitwise": {
         ">>": "shiftedBy",
         ">>>": "shiftedBy",
@@ -46,11 +47,10 @@
         "sign": ["__CONSTRUCT__(${A}).comparedTo(0)"],
         "sqrt": "sqrt"
       },
-      "supportsRound": false,
       "number": {
-        "toFixed": "dp",
         "parseFloat": ["__CONSTRUCT__(${A})"],
         "toExponential": "toExponential",
+        "toFixed": "dp",
         "toPrecision": "toPrecision",
         "toString": "toString"
       }

@@ -4,6 +4,8 @@
     "big-number-rules": {
       "construct": "Big",
       "supportsSum": false,
+      "supportsBitwise": false,
+      "supportsRound": true,
       "arithmetic": {
         "+": "plus",
         "-": "minus",
@@ -28,7 +30,6 @@
         ">=": "gte",
         ">": "gt"
       },
-      "supportsBitwise": false,
       "math": {
         "min": "min",
         "max": "max",
@@ -37,16 +38,15 @@
         "sign": ["__CONSTRUCT__(${A}).cmp(0)"],
         "sqrt": "sqrt"
       },
-      "supportsRound": true,
       "rounding": {
         "round": ["round", "${A}, 1"],
         "ceil": ["round", "${A}, 3"],
         "floor": ["round", "${A}, 0"]
       },
       "number": {
-        "toFixed": "dp",
         "parseFloat": ["__CONSTRUCT__(${A})"],
         "toExponential": "toExponential",
+        "toFixed": "dp",
         "toPrecision": "toPrecision",
         "toString": "toString"
       }
