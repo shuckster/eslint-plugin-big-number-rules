@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.2] - 2021-05-07
+### Added
+- Support bitwise double-not (~~) used for floor'ing
+
 ## [1.5.1] - 2021-05-06
 ### Changed
 - Assignment replacements should include an assignment :P

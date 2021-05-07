@@ -11,6 +11,11 @@ function getRoundTests(config) {
   //
   return [
     {
+      code: '~~1;',
+      output: memberExpression(config, 'rounding', 'floor', '1'),
+      errors: expectingErrors(1)
+    },
+    {
       code: 'Math.floor(1);',
       output: memberExpression(config, 'rounding', 'floor', '1'),
       errors: expectingErrors(1)
@@ -33,6 +38,10 @@ function getRoundWarnings() {
   // Just warnings
   //
   return [
+    {
+      code: '~~1;',
+      errors: expectingErrors(1)
+    },
     {
       code: 'Math.floor(1);',
       errors: expectingErrors(1)
