@@ -83,7 +83,7 @@ BigNumber.sum(0.1, 0.2) - 0.3
 --> BigNumber(3).exponentiatedBy(BigNumber(1).plus(2))
 
 // Bit-shifting...
-///
+//
 2 >>> 4    -->   BigNumber(2).shiftedBy(4)
 4 << 2     -->   BigNumber(4).shiftedBy(-2)
 
