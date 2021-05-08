@@ -70,52 +70,33 @@ You can also [customise](#customisation) the transformations.
 ```js
 // Regular arithmetic operators:
 //
-// 0.1 + 0.2
-// 19.99 * 0.1
-// 1 < 2
-//
-// ...becomes:
-BigNumber.sum(0.1, 0.2)
-BigNumber(19.99).multipliedBy(0.1)
-BigNumber(1).isLessThan(2)
+0.1 + 0.2       -->   BigNumber.sum(0.1, 0.2)
+19.99 * 0.1     -->   BigNumber(19.99).multipliedBy(0.1)
+1 < 2           -->   BigNumber(1).isLessThan(2)
 
 // Can keep a chain going...
 //
-// BigNumber.sum(0.1, 0.2) - 0.3
-// 3 ** BigNumber(1).plus(2)
-//
-// ...becomes:
-BigNumber.sum(0.1, 0.2).minus(0.3)
-BigNumber(3).exponentiatedBy(BigNumber(1).plus(2))
+BigNumber.sum(0.1, 0.2) - 0.3
+--> BigNumber.sum(0.1, 0.2).minus(0.3)
+
+3 ** BigNumber(1).plus(2)
+--> BigNumber(3).exponentiatedBy(BigNumber(1).plus(2))
 
 // Bit-shifting...
 ///
-// 2 >>> 4
-// 4 << 2
-//
-// ...becomes:
-BigNumber(2).shiftedBy(4)
-BigNumber(4).shiftedBy(-2)
+2 >>> 4    -->   BigNumber(2).shiftedBy(4)
+4 << 2     -->   BigNumber(4).shiftedBy(-2)
 
 // Math methods...
 //
-// Math.min(1, 2)
-// Math.sign(-6)
-//
-// ...becomes:
-BigNumber.minimum(1, 2)
-BigNumber(-6).comparedTo(0)
+Math.min(1, 2)    --> BigNumber.minimum(1, 2)
+Math.sign(-6)     --> BigNumber(-6).comparedTo(0)
 
 // toFixed + parseFloat...
 //
-// ;(1).toFixed(2)
-// parseFloat('1.2')
-// Number.parseFloat('2.1')
-//
-// ...becomes:
-BigNumber(1).decimalPlaces(2)
-BigNumber('1.2')
-BigNumber('2.1')
+;(1).toFixed(2)             --> BigNumber(1).decimalPlaces(2)
+parseFloat('1.2')           --> BigNumber('1.2')
+Number.parseFloat('2.1')    --> BigNumber('2.1')
 ```
 
 ## What about Math.round(), ceil, floor?
@@ -254,8 +235,8 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
         "floor": ["round", "${A}, 0"]
       },
       "number": {
-        "toFixed": "dp",
         "parseFloat": ["__CONSTRUCT__(${A})"],
+        "toFixed": "dp",
         "toExponential": "toExponential",
         "toPrecision": "toPrecision",
         "toString": "toString"
