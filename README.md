@@ -176,7 +176,7 @@ BigNumber(BigNumber.sum(1, 2, 3)).minus(4)
 This is valid, but the parser now produces the more efficient:
 
 ```js
-BigNumber.sum(1, 2, 3).minus(1)
+BigNumber.sum(1, 2, 3).minus(4)
 ```
 
 I'm not much of a hotshot with AST parsing, so you may encounter more weirdness like this. Contributions welcome. :)
