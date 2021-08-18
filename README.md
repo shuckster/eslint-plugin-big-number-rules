@@ -160,6 +160,46 @@ For example, put calculations in `*.calc.js` files and permit `big-number-rules`
 }
 ```
 
+Another possibility is to enable rules on a per-file basis.
+
+Disable all rules in your `.eslintrc`:
+
+```json
+// .eslintrc
+{
+  "plugins": ["big-number-rules"],
+  "rules": {
+    "big-number-rules/arithmetic": "off",
+    "big-number-rules/assignment": "off",
+    "big-number-rules/isNaN": "off",
+    "big-number-rules/math": "off",
+    "big-number-rules/number": "off",
+    "big-number-rules/parseFloat": "off",
+    "big-number-rules/rounding": "off"
+  }
+}
+```
+
+Enable them selectively in each file you want to check:
+
+```js
+// sum.js
+
+/* eslint "big-number-rules/arithmetic": "warn" */
+/* eslint "big-number-rules/assignment": "warn" */
+/* eslint "big-number-rules/isNaN": "warn" */
+/* eslint "big-number-rules/math": "warn" */
+/* eslint "big-number-rules/number": "warn" */
+/* eslint "big-number-rules/parseFloat": "warn" */
+/* eslint "big-number-rules/rounding": "warn" */
+
+const sum = 1 + 2
+//          ^^^^^ - Is this a financial calculation?
+//                  (big-number-rules/arithmetic)
+
+...
+```
+
 # Any other caveats?
 
 You may need to tweak some of the generated output.
