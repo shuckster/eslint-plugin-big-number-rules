@@ -4,7 +4,7 @@ specifiers:
   '@rollup/plugin-commonjs': ^20.0.0
   '@rollup/plugin-json': ^4.1.0
   '@rollup/plugin-node-resolve': ^13.0.4
-  esbuild: ^0.12.20
+  esbuild: ^0.12.21
   eslint: ^7.32.0
   glob: ^7.1.7
   load-perf: ^0.2.0
@@ -18,7 +18,7 @@ devDependencies:
   '@rollup/plugin-commonjs': 20.0.0_rollup@2.56.2
   '@rollup/plugin-json': 4.1.0_rollup@2.56.2
   '@rollup/plugin-node-resolve': 13.0.4_rollup@2.56.2
-  esbuild: 0.12.20
+  esbuild: 0.12.21
   eslint: 7.32.0
   glob: 7.1.7
   load-perf: 0.2.0
@@ -161,14 +161,14 @@ packages:
     resolution: {integrity: sha512-C6N5s2ZFtuZRj54k2/zyRhNDjJwwcViAM3Nbm8zjBpbqAdZ00mr0CFxvSKeO8Y/e03WVFLpQMdHYVfUd6SB+Hw==}
     dev: true
 
-  /@types/node/16.6.1:
-    resolution: {integrity: sha512-Sr7BhXEAer9xyGuCN3Ek9eg9xPviCF2gfu9kTfuU2HkTVAMYSDeX40fvpmo72n5nansg3nsBjuQBrsS28r+NUw==}
+  /@types/node/16.6.2:
+    resolution: {integrity: sha512-LSw8TZt12ZudbpHc6EkIyDM3nHVWKYrAvGy6EAJfNfjusbwnThqjqxUKKRwuV3iWYeW/LYMzNgaq3MaLffQ2xA==}
     dev: true
 
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 16.6.1
+      '@types/node': 16.6.2
     dev: true
 
   /abbrev/1.1.1:
@@ -760,8 +760,8 @@ packages:
       prr: 1.0.1
     dev: true
 
-  /esbuild/0.12.20:
-    resolution: {integrity: sha512-u7+0qTo9Z64MD9PhooEngCmzyEYJ6ovFhPp8PLNh3UasR5Ihjv6HWVXqm8uHmasdQlpsAf0IsY4U0YVUfCpt4Q==}
+  /esbuild/0.12.21:
+    resolution: {integrity: sha512-7hyXbU3g94aREufI/5nls7Xcc+RGQeZWZApm6hoBaFvt2BPtpT4TjFMQ9Tb1jU8XyBGz00ShmiyflCogphMHFQ==}
     hasBin: true
     requiresBuild: true
     dev: true
@@ -1283,7 +1283,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.6.1
+      '@types/node': 16.6.2
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: true
