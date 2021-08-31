@@ -5,7 +5,8 @@ const path = require('path')
 const configsPath = path.resolve(__dirname, '../../eslintrc-for-other-libs')
 const baseEslintSettings = {
   parserOptions: {
-    ecmaVersion: 11
+    ecmaVersion: 11,
+    sourceType: 'module' // For testing withImportDeclaration()
   },
   env: {
     node: true,

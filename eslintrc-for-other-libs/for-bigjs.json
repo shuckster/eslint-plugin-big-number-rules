@@ -3,6 +3,7 @@
   "settings": {
     "big-number-rules": {
       "construct": "Big",
+      "importDeclaration": "__IGNORE__",
       "supportsSum": false,
       "supportsBitwise": false,
       "supportsRound": true,
