@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.6] - 2021-08-20
+### Updated
+- Improve isNaN rule to only operate on global/Number namespace
+
 ## [1.5.5] - 2021-08-20
 ### Updated
 - Avoid warnings on expressions that use ".length" -- very unlikely to

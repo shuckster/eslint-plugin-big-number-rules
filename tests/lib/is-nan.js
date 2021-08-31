@@ -15,6 +15,14 @@ function makeTest(config) {
       code: 'isNaN(NaN);',
       output: `${BigNumber}.isNaN(NaN);`,
       errors: expectingErrors(1)
+    },
+    {
+      code: 'Number.isNaN(NaN);',
+      output: `${BigNumber}.isNaN(NaN);`,
+      errors: expectingErrors(1)
+    },
+    {
+      output: 'likelyAlreadyABigNumber.isNaN(NaN);'
     }
   ]
 
@@ -22,6 +30,6 @@ function makeTest(config) {
     name: 'isNaN',
     rule,
     validTests: tests.map(test => test.output).filter(Boolean),
-    invalidTests: tests
+    invalidTests: tests.filter(test => !!test.code)
   }
 }
