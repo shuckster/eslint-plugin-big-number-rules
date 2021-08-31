@@ -132,7 +132,33 @@ Look for the `supportsRound` setting in the example configs.
 
 # Limiting the number of warnings
 
-When enabling this plugin on a large project you will likely see looooads of warnings. It's not like we use `===` just for arithmetic, right? :)
+Since 1.6.0 the plugin supports an `importDeclaration` option. If specified, rules will only apply to files that include an import statement that matches it:
+
+For example:
+
+```json
+// .eslintrc
+{
+  "plugins": ["big-number-rules"],
+  "settings": {
+    "big-number-rules": {
+      "importDeclaration": "bignumber.js"
+    }
+  }
+}
+```
+
+Now, rules will only be applied to files that have the following import:
+
+```js
+import BigNumber from 'bignumber.js'
+```
+
+For now this is ESM only, so it won't work with `require()` I'm afraid.
+
+By default, `importDeclaration` is set to `"__IGNORE__"`, meaning all files that eslint is interested in will be processed.
+
+Leaving this default in place on a large project will likely result in looooads of warnings. It's not like we use `===` just for arithmetic, right? :)
 
 There are a few strategies we can employ to keep the number of warnings down to something useful:
 
@@ -144,46 +170,11 @@ There are a few strategies we can employ to keep the number of warnings down to 
 
 Taken in-order I think these constitute a good approach to ending up with a finance-safe codebase: Identify what needs fixing, fix them, and refactor the calculations as you go into more centralised places.
 
-For example, put calculations in `*.calc.js` files and permit `big-number-rules` for just those ones using `overrides`:
-
-```json
-// .eslintrc
-{
-  "plugins": ["big-number-rules"],
-  "overrides": [
-    {
-      "files": ["src/**/*.calc.js"],
-      "extends": ["plugin:big-number-rules/recommended"],
-      // "rules": { ... }
-    }
-  ]
-}
-```
-
-Another possibility is to enable rules on a per-file basis.
-
-Disable all rules in your `.eslintrc`:
-
-```json
-// .eslintrc
-{
-  "plugins": ["big-number-rules"],
-  "rules": {
-    "big-number-rules/arithmetic": "off",
-    "big-number-rules/assignment": "off",
-    "big-number-rules/isNaN": "off",
-    "big-number-rules/math": "off",
-    "big-number-rules/number": "off",
-    "big-number-rules/parseFloat": "off",
-    "big-number-rules/rounding": "off"
-  }
-}
-```
-
-Enable them selectively in each file you want to check:
+You can then use a combination of `importDeclaration` and eslint's rule-enabling comment syntax to do things file-by-file, for example:
 
 ```js
 // sum.js
+import BigNumber from 'bignumber.js'
 
 /* eslint "big-number-rules/arithmetic": "warn" */
 /* eslint "big-number-rules/assignment": "warn" */
@@ -198,6 +189,18 @@ const sum = 1 + 2
 //                  (big-number-rules/arithmetic)
 
 ...
+```
+
+```json
+// .eslintrc
+{
+  "plugins": ["big-number-rules"],
+  "settings": {
+    "big-number-rules": {
+      "importDeclaration": "bignumber.js"
+    }
+  }
+}
 ```
 
 # Any other caveats?
@@ -234,6 +237,7 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
   "settings": {
     "big-number-rules": {
       "construct": "Big",
+      "importDeclaration": "__IGNORE__",
       "supportsSum": false,
       "supportsBitwise": false,
       "supportsRound": true,

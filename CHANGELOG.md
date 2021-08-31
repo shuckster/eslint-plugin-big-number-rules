@@ -6,13 +6,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.5.6] - 2021-08-20
+## [1.6.0] - 2021-08-31
 ### Updated
-- Improve isNaN rule to only operate on global/Number namespace
+- New option for ESM files: `importDeclaration`. Defaults to "__IGNORE__",
+  but if specified the plugin will only apply its rules to files that
+  include an import statement matching it.
+
+  For example, if `importDeclaration` is `"my-lib.js"`, the plugin will only
+  apply rules to a file if it sees the following import:
+
+      import whatever from 'my-lib.js'
+
+### Fixed
+- Correct date on 1.5.6 changelog entry
+
+## [1.5.6] - 2021-08-31
+### Updated
+- Improve `isNaN` rule to only operate on global/Number namespace
 
 ## [1.5.5] - 2021-08-20
 ### Updated
-- Avoid warnings on expressions that use ".length" -- very unlikely to
+- Avoid warnings on expressions that use `.length` -- very unlikely to
   be financial calculations
 
 ## [1.5.4] - 2021-08-19
@@ -25,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.2] - 2021-05-07
 ### Added
-- Support bitwise double-not (~~) used for floor'ing
+- Support bitwise double-not (`~~`) used for floor'ing
 
 ## [1.5.1] - 2021-05-06
 ### Changed
@@ -33,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.0] - 2021-05-06
 ### Added
-- Rules for assignment-expressions (+=, -=, etc.)
+- Rules for assignment-expressions (`+=`, `-=`, etc.)
   (big-number-rules/assignment)
 
 ## [1.4.0] - 2021-05-05
