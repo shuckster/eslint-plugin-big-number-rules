@@ -42,12 +42,14 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "esbuild": "^0.12.21",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "esbuild": "^0.12.24",
     "eslint": "^7.32.0",
     "glob": "^7.1.7",
     "load-perf": "^0.2.0",
+    "match-iz": "^1.6.4",
     "nodemon": "^2.0.12",
-    "rollup": "^2.56.2",
+    "rollup": "^2.56.3",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-terser": "^7.0.2"

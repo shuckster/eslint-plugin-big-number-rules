@@ -6,6 +6,7 @@ const json = require('@rollup/plugin-json')
 const commonjs = require('@rollup/plugin-commonjs')
 const cleanup = require('rollup-plugin-cleanup')
 const { terser } = require('rollup-plugin-terser')
+const { nodeResolve } = require('@rollup/plugin-node-resolve')
 
 const pkg = require('../package.json')
 const { paths, banner } = require('./common')
@@ -36,5 +37,5 @@ module.exports = {
       exports: 'default'
     }
   ],
-  plugins: [json(), commonjs(), cleanup()]
+  plugins: [json(), nodeResolve(), commonjs(), cleanup()]
 }
