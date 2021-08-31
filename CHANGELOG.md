@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2021-08-31
+### Fixed
+- `importDeclaration` rule was only applying to the first import
+
 ## [1.6.0] - 2021-08-31
 ### Updated
 - New option for ESM files: `importDeclaration`. Defaults to "__IGNORE__",
