@@ -266,6 +266,16 @@ function makeTest(config) {
       errors: expectingErrors(1)
     },
     {
+      code: `${BigNumber}(1) !== ${BigNumber}(2);`,
+      output: `!${BigNumber}(1).${isStrictlyEqualTo}(${BigNumber}(2));`,
+      errors: expectingErrors(1)
+    },
+    {
+      code: `${BigNumber}(1) != ${BigNumber}(2);`,
+      output: `!${BigNumber}(1).${isEqualTo}(${BigNumber}(2));`,
+      errors: expectingErrors(1)
+    },
+    {
       code: `${BigNumber}(1) >= ${BigNumber}(2);`,
       output: `${BigNumber}(1).${isGreaterThanOrEqualTo}(${BigNumber}(2));`,
       errors: expectingErrors(1)
