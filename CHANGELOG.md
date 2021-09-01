@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2021-09-01
+### Updated
+- Include `importDeclaration` at top of README to help the quick-starters
+
 ## [1.6.1] - 2021-08-31
 ### Fixed
 - `importDeclaration` rule was only applying to the first import

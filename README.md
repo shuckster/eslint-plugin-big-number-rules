@@ -59,6 +59,13 @@ Recommended rules will `warn` about everything:
     "big-number-rules/number": "warn",
     "big-number-rules/parseFloat": "warn",
     "big-number-rules/rounding": "warn"
+  },
+  "settings": {
+    "big-number-rules": {
+      // Specify the following if you want rules to apply only
+      // to files with an `import 'bignumber.js'` declaration
+      "importDeclaration": "bignumber.js"
+    }
   }
 }
 ```
