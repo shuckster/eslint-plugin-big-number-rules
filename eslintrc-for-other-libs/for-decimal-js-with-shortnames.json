@@ -1,0 +1,59 @@
+{
+  "plugins": ["big-number-rules"],
+  "settings": {
+    "big-number-rules": {
+      "construct": "Decimal",
+      "importDeclaration": "__IGNORE__",
+      "supportsSum": true,
+      "supportsBitwise": false,
+      "supportsRound": true,
+      "sum": "sum",
+      "arithmetic": {
+        "+": "plus",
+        "-": "minus",
+        "/": "div",
+        "*": "mul",
+        "**": "pow",
+        "%": "mod"
+      },
+      "assignment": {
+        "+=": "plus",
+        "-=": "minus",
+        "/=": "div",
+        "*=": "mul",
+        "**=": "pow",
+        "%=": "mod"
+      },
+      "comparison": {
+        "<": "lt",
+        "<=": "lte",
+        "===": "eq",
+        "==": "eq",
+        "!==": ["__NEGATION__", "${L}", "eq", "${R}"],
+        "!=": ["__NEGATION__", "${L}", "eq", "${R}"],
+        ">=": "gte",
+        ">": "gt"
+      },
+      "math": {
+        "min": "min",
+        "max": "max",
+        "random": "random",
+        "abs": "abs",
+        "sign": ["__CONSTRUCT__(${A}).cmp(0)"],
+        "sqrt": "sqrt"
+      },
+      "rounding": {
+        "round": "round",
+        "ceil": "ceil",
+        "floor": "floor"
+      },
+      "number": {
+        "parseFloat": ["__CONSTRUCT__(${A})"],
+        "toExponential": "toExponential",
+        "toFixed": "decimalPlaces",
+        "toPrecision": "toPrecision",
+        "toString": "toString"
+      }
+    }
+  }
+}
