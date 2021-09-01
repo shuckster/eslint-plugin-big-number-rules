@@ -22,6 +22,8 @@ const suites = [
   require('./rounding')
 ]
 
+let errorCode = 0
+
 function main() {
   loadJsonFile(path.join(configsPath, 'default.json'))
     .then(defaultEslintSettings =>
@@ -29,7 +31,10 @@ function main() {
         .then(logWhenDoneWith())
         .then(runTestSuitesAgainstCustomEslintConfigs)
     )
-    .finally(() => console.log(new Date().toTimeString()))
+    .finally(() => {
+      console.log(new Date().toTimeString())
+      process.exit(errorCode)
+    })
 }
 
 function testAllSuitesAgainstEslintConfig(customEslintSettings) {
@@ -67,7 +72,12 @@ function testAllSuitesAgainstEslintConfig(customEslintSettings) {
   )
     .then(filter(result => result.status === 'rejected'))
     .then(map(result => result.reason))
-    .then(errors => errors.forEach(error => console.error(error)))
+    .then(errors => {
+      if (errors.length) {
+        errorCode = 1
+      }
+      errors.forEach(error => console.error(error))
+    })
 }
 
 function runTestSuitesAgainstCustomEslintConfigs() {
