@@ -163,14 +163,14 @@ packages:
     resolution: {integrity: sha512-C6N5s2ZFtuZRj54k2/zyRhNDjJwwcViAM3Nbm8zjBpbqAdZ00mr0CFxvSKeO8Y/e03WVFLpQMdHYVfUd6SB+Hw==}
     dev: true
 
-  /@types/node/16.7.7:
-    resolution: {integrity: sha512-bxWC4rgIF/FjM7JsPvpk6ZKGITgw27qsYCbi6h4kWZWYpchOLENgvFaRBZUc64Q/M1y+X2EteahRbyo8QFCKdw==}
+  /@types/node/16.7.10:
+    resolution: {integrity: sha512-S63Dlv4zIPb8x6MMTgDq5WWRJQe56iBEY0O3SOFA9JrRienkOVDXSXBjjJw6HTNQYSE2JI6GMCR6LVbIMHJVvA==}
     dev: true
 
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 16.7.7
+      '@types/node': 16.7.10
     dev: true
 
   /abbrev/1.1.1:
@@ -572,8 +572,8 @@ packages:
       xdg-basedir: 4.0.0
     dev: true
 
-  /core-util-is/1.0.2:
-    resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
+  /core-util-is/1.0.3:
+    resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
   /create-ecdh/4.0.4:
@@ -1285,7 +1285,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.7.7
+      '@types/node': 16.7.10
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: true
@@ -1803,7 +1803,7 @@ packages:
   /readable-stream/1.0.34:
     resolution: {integrity: sha1-Elgg40vIQtLyqq+v5MKRbuMsFXw=}
     dependencies:
-      core-util-is: 1.0.2
+      core-util-is: 1.0.3
       inherits: 2.0.4
       isarray: 0.0.1
       string_decoder: 0.10.31
@@ -1812,7 +1812,7 @@ packages:
   /readable-stream/1.1.14:
     resolution: {integrity: sha1-fPTFTvZI44EwhMY23SB54WbAgdk=}
     dependencies:
-      core-util-is: 1.0.2
+      core-util-is: 1.0.3
       inherits: 2.0.4
       isarray: 0.0.1
       string_decoder: 0.10.31
@@ -1821,7 +1821,7 @@ packages:
   /readable-stream/2.3.7:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
     dependencies:
-      core-util-is: 1.0.2
+      core-util-is: 1.0.3
       inherits: 2.0.4
       isarray: 1.0.0
       process-nextick-args: 2.0.1
