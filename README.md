@@ -269,6 +269,8 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
         "<=": "lte",
         "===": "eq",
         "==": "eq",
+        "!==": ["__NEGATION__", "${L}", "eq", "${R}"],
+        "!=": ["__NEGATION__", "${L}", "eq", "${R}"],
         ">=": "gte",
         ">": "gt"
       },
@@ -287,8 +289,8 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
       },
       "number": {
         "parseFloat": ["__CONSTRUCT__(${A})"],
-        "toFixed": "dp",
         "toExponential": "toExponential",
+        "toFixed": "dp",
         "toPrecision": "toPrecision",
         "toString": "toString"
       }
