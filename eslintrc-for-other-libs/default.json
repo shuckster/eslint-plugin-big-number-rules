@@ -32,6 +32,8 @@
         "<=": "isLessThanOrEqualTo",
         "===": "isEqualTo",
         "==": "isEqualTo",
+        "!==": ["__NEGATION__", "${L}", "isEqualTo", "${R}"],
+        "!=": ["__NEGATION__", "${L}", "isEqualTo", "${R}"],
         ">=": "isGreaterThanOrEqualTo",
         ">": "isGreaterThan"
       },
