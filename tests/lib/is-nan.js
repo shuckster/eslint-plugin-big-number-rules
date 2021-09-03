@@ -13,12 +13,12 @@ function makeTest(config) {
     //
     {
       code: 'isNaN(NaN);',
-      output: `${BigNumber}.isNaN(NaN);`,
+      output: `${BigNumber}(NaN).isNaN();`,
       errors: expectingErrors(1)
     },
     {
       code: 'Number.isNaN(NaN);',
-      output: `${BigNumber}.isNaN(NaN);`,
+      output: `${BigNumber}(NaN).isNaN();`,
       errors: expectingErrors(1)
     },
     {
