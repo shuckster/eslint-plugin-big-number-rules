@@ -183,14 +183,6 @@ You can then use a combination of `importDeclaration` and eslint's rule-enabling
 // sum.js
 import BigNumber from 'bignumber.js'
 
-/* eslint "big-number-rules/arithmetic": "warn" */
-/* eslint "big-number-rules/assignment": "warn" */
-/* eslint "big-number-rules/isNaN": "warn" */
-/* eslint "big-number-rules/math": "warn" */
-/* eslint "big-number-rules/number": "warn" */
-/* eslint "big-number-rules/parseFloat": "warn" */
-/* eslint "big-number-rules/rounding": "warn" */
-
 const sum = 1 + 2
 //          ^^^^^ - Is this a financial calculation?
 //                  (big-number-rules/arithmetic)
@@ -320,7 +312,7 @@ sum
 
 This is the classic example and is often cited, but there are other rare corner-cases that will eventually be caught some time after committing to a currency-unsafe solution.
 
-`eslint-plugin-big-number-rules` will translate the above to:
+`eslint-plugin-big-number-rules` will translate the example above to:
 
 ```js
 const sum = BigNumber.sum(0.1, 0.2)
@@ -328,7 +320,20 @@ BigNumber(sum).isEqualTo(0.3)
 // true
 ```
 
-Using `bignumber.js` isn't complicated, but it does require a little discipline and vigilance to keep on top of, so an [eslint](https://eslint.org/) plugin to warn-about the use of JavaScript's native-math methods, and also offer to fill-in alternatives, seemed like a good way to do that.
+The problem manifests in the first place because in the floating-point number-type of most languages (not just JavaScript!) the mantissa/significand is represented as a power-of-two fraction rather than a power-of-10 decimal:
+
+```
+ _ _._____._____._____._____._____._____._____.______.______.__ _ _
+ _ _|  8  |  4  |  2  |  1  | 1/2 | 1/4 | 1/8 | 1/16 | 1/32 | ... etc
+    \__________.___________/ \______________________________ _ _ _
+Exponent ------^                      |
+                                      |
+Significand ------>-------->----------^
+```
+
+IEEE-754 defines various rules for marshalling these fractions into a decimal, but as you can probably imagine it's not always exact.
+
+Libraries like `bignumber.js` helps us work around this. Using them isn't complicated, but it does require a little discipline and vigilance to keep on top of, so an [eslint](https://eslint.org/) plugin to warn-about the use of JavaScript's native-math methods seemed like a good way to do that.
 
 # Credits
 
@@ -346,8 +351,6 @@ He was inspired by the work of these fine Internet folk:
 ## Contributing
 
 To support my efforts with this project, consider checking out the accountancy company I work for: [Crunch](https://www.crunch.co.uk/).
-
-If you'd rather not change your entire accounting solution for the sake of an eslint plugin, but it nevertheless saved you a little pain, please consider [buying me a coffee](https://www.buymeacoffee.com/shuckster). ☕️
 
 # License
 
