@@ -47,7 +47,7 @@
     "eslint": "^7.32.0",
     "glob": "^7.1.7",
     "load-perf": "^0.2.0",
-    "match-iz": "^1.7.3",
+    "match-iz": "^1.8.0",
     "nodemon": "^2.0.12",
     "rollup": "^2.56.3",
     "rollup-plugin-cleanup": "^3.2.1",

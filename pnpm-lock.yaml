@@ -8,7 +8,7 @@ specifiers:
   eslint: ^7.32.0
   glob: ^7.1.7
   load-perf: ^0.2.0
-  match-iz: ^1.7.3
+  match-iz: ^1.8.0
   nodemon: ^2.0.12
   rollup: ^2.56.3
   rollup-plugin-cleanup: ^3.2.1
@@ -23,7 +23,7 @@ devDependencies:
   eslint: 7.32.0
   glob: 7.1.7
   load-perf: 0.2.0
-  match-iz: 1.7.3
+  match-iz: 1.8.0
   nodemon: 2.0.12
   rollup: 2.56.3
   rollup-plugin-cleanup: 3.2.1_rollup@2.56.3
@@ -1489,8 +1489,8 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /match-iz/1.7.3:
-    resolution: {integrity: sha512-DBhOtWoedjCKHobOu1y7AqrIn6R5JbHCfS22/6FUX2uGbuJh/50nd/yF5S6lLVCkkvKQp3g3UZYh9zc8b4w42A==}
+  /match-iz/1.8.0:
+    resolution: {integrity: sha512-DP9HQp/d2bQltxiQhq2skMyr81ThI24vi0qr0uwiM87I5xtS4NpdRGnmj0T+gcxaR/4Hf3TjmSs4/lIJf1/SUQ==}
     engines: {node: '>=10'}
     dev: true
 
