@@ -7,9 +7,10 @@ const {
   getExampleEslintConfigsForOtherLibs,
   loadJsonFile,
   bigNumberRules,
-  makePromise,
   filter,
-  map
+  map,
+  flow,
+  tryCatch
 } = require('./common')
 
 const suites = [
@@ -26,11 +27,9 @@ let errorCode = 0
 
 function main() {
   loadJsonFile(path.join(configsPath, 'default.json'))
-    .then(defaultEslintSettings =>
-      testAllSuitesAgainstEslintConfig(defaultEslintSettings)
-        .then(logWhenDoneWith())
-        .then(runTestSuitesAgainstCustomEslintConfigs)
-    )
+    .then(defaultSettings => testAllSuitesAgainstEslintConfig(defaultSettings))
+    .then(logWhenDoneWith())
+    .then(runTestSuitesAgainstCustomEslintConfigs)
     .finally(() => {
       console.log(new Date().toTimeString())
       process.exit(errorCode)
@@ -38,38 +37,21 @@ function main() {
 }
 
 function testAllSuitesAgainstEslintConfig(customEslintSettings) {
-  return Promise.allSettled(
-    suites.map(({ makeTest }) => {
-      const [promise, resolve, reject] = makePromise()
+  const eslintSettings = {
+    ...baseEslintSettings,
+    ...customEslintSettings
+  }
+  const ruleTester = new RuleTester(eslintSettings)
+  const config = bigNumberRules(eslintSettings)
+  const rulesToRun = suites
+    .map(({ makeTest }) => makeTest(config))
+    .map(({ invalidTests: invalid, validTests: valid, ...rest }) => ({
+      testCases: { valid, invalid },
+      ...rest
+    }))
+    .map(opts => runRuleTester({ ruleTester, config, ...opts }))
 
-      const eslintSettings = {
-        ...baseEslintSettings,
-        ...customEslintSettings
-      }
-
-      const config = bigNumberRules(eslintSettings)
-      const { name, rule, invalidTests, validTests } = makeTest(config)
-      const ruleTester = new RuleTester(eslintSettings)
-
-      try {
-        ruleTester.run(name, rule, {
-          valid: validTests,
-          invalid: invalidTests
-        })
-        resolve()
-      } catch (e) {
-        reject(
-          `${e}\n\\_ ${config.construct} // ${name}\nrule: ${JSON.stringify(
-            rule,
-            null,
-            2
-          )}\n`
-        )
-      }
-
-      return promise
-    })
-  )
+  return Promise.allSettled(rulesToRun)
     .then(filter(result => result.status === 'rejected'))
     .then(map(result => result.reason))
     .then(errors => {
@@ -78,6 +60,19 @@ function testAllSuitesAgainstEslintConfig(customEslintSettings) {
       }
       errors.forEach(error => console.error(error))
     })
+}
+
+function runRuleTester({ ruleTester, config, name, rule, testCases }) {
+  return new Promise((resolve, reject) =>
+    tryCatch(() => ruleTester.run(name, rule, testCases)).fork(
+      flow(
+        e => [e, config.construct, name, JSON.stringify(rule, null, 2)],
+        ([$1, $2, $3, $4]) => `${$1}\n\\_ ${$2} // ${$3}\nrule: ${$4}\n`,
+        reject
+      ),
+      resolve
+    )
+  )
 }
 
 function runTestSuitesAgainstCustomEslintConfigs() {

@@ -13,18 +13,18 @@ function main() {
 }
 
 function buildMain() {
-  const decoder = new TextDecoder()
+  const buildOptions = {
+    entryPoints: [paths.SRC],
+    minify: true,
+    bundle: true,
+    platform: 'node',
+    target: ['es6'],
+    write: false
+  }
   return esbuild
-    .build({
-      entryPoints: [paths.SRC],
-      minify: true,
-      bundle: true,
-      platform: 'node',
-      target: ['es6'],
-      write: false
-    })
+    .build(buildOptions)
     .then(getConcatenatedEsbuildContent)
-    .then(buffer => decoder.decode(buffer))
+    .then(buffer => new TextDecoder().decode(buffer))
     .then(text => banner(pkg, text))
     .then(writeTextFile(paths.DIST))
 }
@@ -54,19 +54,6 @@ const mergeTypedArrays = (arrays, type = Uint8Array) => {
 }
 
 function writeTextFile(path) {
-  return textContent => {
-    const [promise, resolve, reject] = makePromise()
-    fs.writeFile(path, textContent, err => (err ? reject(err) : resolve()))
-    return promise
-  }
-}
-
-function makePromise() {
-  let _resolve
-  let _reject
-  const promise = new Promise((resolve, reject) => {
-    _resolve = resolve
-    _reject = reject
-  })
-  return [promise, _resolve, _reject]
+  return textContent =>
+    Promise.resolve(path).then($ => fs.writeFileSync($, textContent))
 }

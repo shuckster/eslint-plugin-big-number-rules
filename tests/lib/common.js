@@ -2,6 +2,8 @@ const glob = require('glob')
 const fs = require('fs')
 const path = require('path')
 
+const { match, when, otherwise, not, isArray } = require('match-iz')
+
 const configsPath = path.resolve(__dirname, '../../eslintrc-for-other-libs')
 const baseEslintSettings = {
   parserOptions: {
@@ -25,9 +27,10 @@ module.exports = {
   expectingErrors,
   bigNumberRules,
   memberExpression,
-  makePromise,
   filter,
-  map
+  map,
+  flow,
+  tryCatch
 }
 
 function bigNumberRules(eslintSettings) {
@@ -36,25 +39,22 @@ function bigNumberRules(eslintSettings) {
 
 function memberExpression(config, setting, fn, arg) {
   const { construct: BigNumber } = config
-  const method = config[setting][fn]
 
-  if (!Array.isArray(method)) {
-    return `${BigNumber}.${method}(${arg});`
-  }
-
-  if (method.length === 1) {
-    return (
-      method[0].replace('__CONSTRUCT__', BigNumber).replace('${A}', arg) + ';'
-    )
-  }
-
-  if (method.length === 2) {
-    const _method = method[0]
-    const _arg = method[1].replace('${A}', arg)
-    return `${BigNumber}.${_method}(${_arg});`
-  }
-
-  return '[INVALID_MEMBER_EXPRESSION_FORMAT]'
+  return match(config[setting][fn])(
+    when(not(isArray))(method => `${BigNumber}.${method}(${arg});`),
+    when({ length: 1 })(method =>
+      method[0]
+        .replace('__CONSTRUCT__', BigNumber)
+        .replace('${A}', arg)
+        .concat(';')
+    ),
+    when({ length: 2 })($ => {
+      const _method = $[0]
+      const _arg = $[1].replace('${A}', arg)
+      return `${BigNumber}.${_method}(${_arg});`
+    }),
+    otherwise('[INVALID_MEMBER_EXPRESSION_FORMAT]')
+  )
 }
 
 function expectingErrors(numberOfErrors) {
@@ -65,63 +65,57 @@ function expectingErrors(numberOfErrors) {
     }))
 }
 
-function globConfigForOtherLibs() {
-  const [promise, resolve, reject] = makePromise()
-  glob(path.join(configsPath, '/**/*.json'), {}, (err, files) => {
-    return err
-      ? reject(err)
-      : Promise.all(files.map(fileOnly)).then(resolve, reject)
-  })
-
-  return promise
-}
+//
+// Files
+//
 
 function getExampleEslintConfigsForOtherLibs() {
-  return globConfigForOtherLibs().then(files =>
-    Promise.all(
-      files.filter(file => !file.endsWith('/default.json')).map(loadJsonFile)
+  return globConfigForOtherLibs()
+    .then(files => files.filter($ => !$.endsWith('/default.json')))
+    .then($ => $.map(loadJsonFile))
+    .then($ => Promise.all($))
+}
+
+function globConfigForOtherLibs() {
+  return Promise.resolve(configsPath)
+    .then($ => path.join($, '/**/*.json'))
+    .then($ => globFilesOnly($))
+}
+
+function globFilesOnly(path) {
+  return new Promise((resolve, reject) =>
+    glob(path, {}, (err, files) =>
+      err ? reject(err) : Promise.all(files.map(fileOnly)).then(resolve)
     )
   )
+}
+
+function fileOnly(potentialFile) {
+  return Promise.resolve(potentialFile)
+    .then(fs.statSync)
+    .then($ => $.isFile() || Promise.reject.bind(Promise, $))
+    .then(() => potentialFile)
+}
+
+function loadJsonFile(fileName) {
+  return Promise.resolve(fileName)
+    .then(ThrowIfUnset('No fileName specified'))
+    .then(fileName => [fileName].flat())
+    .then($ => path.join(...$))
+    .then($ => fs.readFileSync($))
+    .then($ => $.toString())
+    .then(JSON.parse)
 }
 
 //
 // Helpers
 //
 
-function makePromise() {
-  let _resolve
-  let _reject
-  const promise = new Promise((resolve, reject) => {
-    _resolve = resolve
-    _reject = reject
-  })
-  return [promise, _resolve, _reject]
-}
-
-function fileOnly(potentialFile) {
-  const [promise, resolve, reject] = makePromise()
-
-  fs.stat(potentialFile, (err, stats) => {
-    const invalid = err || !stats.isFile()
-    return invalid ? reject(err || stats) : resolve(potentialFile)
-  })
-
-  return promise
-}
-
-function loadJsonFile(fileName) {
-  if (!fileName) {
-    return Promise.reject(new Error('No fileName specified'))
+function ThrowIfUnset(message) {
+  return x => {
+    if (!x) throw new Error(message)
+    return x
   }
-
-  const [promise, resolve, reject] = makePromise()
-  const fullPath = [fileName].flat()
-
-  fs.readFile(path.join(...fullPath), (err, data) =>
-    err ? reject(err) : resolve(JSON.parse(data.toString()))
-  )
-
-  return promise
 }
 
 function filter(pred) {
@@ -130,4 +124,20 @@ function filter(pred) {
 
 function map(pred) {
   return arr => arr.map(pred)
+}
+
+function flow(...fns) {
+  return (...x) => fns.reduce((g, f) => [f(...g)], x)[0]
+}
+
+function tryCatch(f) {
+  let result, reason
+  try {
+    result = f()
+  } catch (e) {
+    reason = e
+  }
+  return {
+    fork: (left, right) => (reason ? left(reason) : right(result))
+  }
 }
