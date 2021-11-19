@@ -27,7 +27,7 @@ let errorCode = 0
 
 function main() {
   loadJsonFile(path.join(configsPath, 'default.json'))
-    .then(defaultSettings => testAllSuitesAgainstEslintConfig(defaultSettings))
+    .then(testAllSuitesAgainstEslintConfig)
     .then(logWhenDoneWith())
     .then(runTestSuitesAgainstCustomEslintConfigs)
     .finally(() => {
@@ -43,22 +43,24 @@ function testAllSuitesAgainstEslintConfig(customEslintSettings) {
   }
   const ruleTester = new RuleTester(eslintSettings)
   const config = bigNumberRules(eslintSettings)
-  const rulesToRun = suites
+  const suitesOpts = suites
     .map(({ makeTest }) => makeTest(config))
     .map(({ invalidTests: invalid, validTests: valid, ...rest }) => ({
       testCases: { valid, invalid },
       ...rest
     }))
-    .map(opts => runRuleTester({ ruleTester, config, ...opts }))
 
-  return Promise.allSettled(rulesToRun)
+  const ruleTestersToRun = suitesOpts.map(opts =>
+    runRuleTester({ ruleTester, config, ...opts })
+  )
+  return Promise.allSettled(ruleTestersToRun)
     .then(filter(result => result.status === 'rejected'))
     .then(map(result => result.reason))
     .then(errors => {
       if (errors.length) {
         errorCode = 1
       }
-      errors.forEach(error => console.error(error))
+      errors.forEach(console.error)
     })
 }
 
