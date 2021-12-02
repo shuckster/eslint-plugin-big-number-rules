@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.5] - 2021-12-02
+### Update
+- Minor refactoring
+
 ## [1.7.4] - 2021-09-19
 ### Update
 - Refactor some rules to use pattern-matching
