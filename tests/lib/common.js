@@ -138,6 +138,6 @@ function tryCatch(f) {
     reason = e
   }
   return {
-    fork: (left, right) => (reason ? left(reason) : right(result))
+    fold: (left, right) => (reason ? left(reason) : right(result))
   }
 }

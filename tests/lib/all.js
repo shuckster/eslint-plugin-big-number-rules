@@ -66,9 +66,9 @@ function testAllSuitesAgainstEslintConfig(customEslintSettings) {
 
 function runRuleTester({ ruleTester, config, name, rule, testCases }) {
   return new Promise((resolve, reject) =>
-    tryCatch(() => ruleTester.run(name, rule, testCases)).fork(
+    tryCatch(() => ruleTester.run(name, rule, testCases)).fold(
       flow(
-        e => [e, config.construct, name, JSON.stringify(rule, null, 2)],
+        error => [error, config.construct, name, JSON.stringify(rule, null, 2)],
         ([$1, $2, $3, $4]) => `${$1}\n\\_ ${$2} // ${$3}\nrule: ${$4}\n`,
         reject
       ),
