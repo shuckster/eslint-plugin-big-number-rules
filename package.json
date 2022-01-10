@@ -37,6 +37,7 @@
     "build:esbuild": "node ./build-config/esbuild.js",
     "perf": "node ./tests/perf.js",
     "test": "node ./tests/lib/all.js",
+    "lint": "pnpx eslint lib/*.js tests/*.js",
     "test:watch": "nodemon ./tests/lib/all.js"
   },
   "devDependencies": {
