@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors } = require('./common')
-const rule = require('../../lib/rules/assignment')
+const rule = require('../../src/rules/assignment')
 
 function extractMethods(ops) {
   return Object.entries(ops).reduce((acc, [key, value]) => {

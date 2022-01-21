@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors } = require('./common')
-const rule = require('../../lib/rules/number')
+const rule = require('../../src/rules/number')
 
 function makeTest(config) {
   const { construct: BigNumber, number } = config

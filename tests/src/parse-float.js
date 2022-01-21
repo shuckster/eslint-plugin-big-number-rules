@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors } = require('./common')
-const rule = require('../../lib/rules/parse-float')
+const rule = require('../../src/rules/parse-float')
 
 function makeTest(config) {
   const { construct: BigNumber } = config

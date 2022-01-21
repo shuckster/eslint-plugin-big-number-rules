@@ -1,7 +1,7 @@
 const path = require('path')
 
 const paths = {
-  SRC: path.resolve('./lib/index.js'),
+  SRC: path.resolve('./src/index.js'),
   DIST: path.join('./dist/index.js')
 }
 

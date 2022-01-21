@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors } = require('./common')
-const rule = require('../../lib/rules/is-nan')
+const rule = require('../../src/rules/is-nan')
 
 function makeTest(config) {
   const { construct: BigNumber } = config
