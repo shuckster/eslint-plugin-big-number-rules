@@ -15,6 +15,15 @@ function makeTest(config) {
       code: 'parseFloat(-1.5);',
       output: `${BigNumber}(-1.5);`,
       errors: expectingErrors(1)
+    },
+    //
+    // Regression test for:
+    // https://github.com/shuckster/eslint-plugin-big-number-rules/issues/2
+    //
+    {
+      code: 'Object.prototype.hasOwnProperty.call({}); parseFloat(-1.5);',
+      output: `Object.prototype.hasOwnProperty.call({}); ${BigNumber}(-1.5);`,
+      errors: expectingErrors(1)
     }
   ]
 

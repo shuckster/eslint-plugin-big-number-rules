@@ -1,6 +1,10 @@
 const { match, when, otherwise, isString, anyOf } = require('match-iz')
 const { getConstruct, getImportDeclaration } = require('./settings')
 
+function hasOwn(obj, key) {
+  return Object.prototype.hasOwnProperty.call(obj, key)
+}
+
 function withImportDeclaration(context, fn) {
   const importDeclarationSetting = getImportDeclaration(context)
   if (importDeclarationSetting === '__IGNORE__') {
@@ -116,7 +120,9 @@ function makeGlobalIdentifierFixer(globalMethods) {
         return
       }
 
-      const isStatic = supportedStatics[node.name]
+      const isStatic =
+        hasOwn(supportedStatics, node.name) && supportedStatics[node.name]
+
       if (typeof isStatic === 'function' && isStatic(context, node)) {
         context.report({
           node: node.parent,
