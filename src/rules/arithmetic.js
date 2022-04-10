@@ -1,4 +1,12 @@
-const { match, when, against, otherwise, not, allOf } = require('match-iz')
+const {
+  match,
+  when,
+  against,
+  otherwise,
+  not,
+  allOf,
+  anyOf
+} = require('match-iz')
 const { makeSettingGetter, getConstruct } = require('../settings')
 const { withImportDeclaration } = require('../helpers')
 
@@ -64,9 +72,9 @@ function arithmeticEntry(context) {
     ...getComparisonMethods(context)
   }
 
-  const isArithmeticOperator = Object.keys(arithmeticMethods)
+  const isArithmeticOperator = anyOf(Object.keys(arithmeticMethods))
   const bitwiseMethods = getBitwiseMethods(context)
-  const isBitwiseOperator = Object.keys(bitwiseMethods)
+  const isBitwiseOperator = anyOf(Object.keys(bitwiseMethods))
   const allMethods = {
     ...arithmeticMethods,
     ...bitwiseMethods

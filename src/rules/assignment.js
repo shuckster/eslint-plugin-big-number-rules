@@ -1,4 +1,4 @@
-const { against, when, not, match, otherwise } = require('match-iz')
+const { against, when, not, match, otherwise, anyOf } = require('match-iz')
 const { makeSettingGetter, getConstruct } = require('../settings')
 const { withImportDeclaration } = require('../helpers')
 
@@ -36,8 +36,10 @@ function assignmentEntry(context) {
   const construct = getConstruct(context)
 
   const assignmentMethods = getAssignmentMethods(context)
-  const isArithmeticAssignmentOp = Object.keys(arithmeticAssignmentMethods)
-  const isBitwiseAssignmentOp = Object.keys(bitwiseAssignmentMethods)
+  const isArithmeticAssignmentOp = anyOf(
+    Object.keys(arithmeticAssignmentMethods)
+  )
+  const isBitwiseAssignmentOp = anyOf(Object.keys(bitwiseAssignmentMethods))
   const isBitwiseSupported = getSupportsBitwise(context)
 
   const isNotAlreadyBigNumber = not({ type: 'Identifier', name: construct })

@@ -1,4 +1,4 @@
-const { match, when, against, otherwise } = require('match-iz')
+const { match, when, against, otherwise, anyOf } = require('match-iz')
 const { makeSettingGetter, getConstruct } = require('../settings')
 const {
   IdentifierIsAlreadyBigNumberMethod,
@@ -22,7 +22,7 @@ const getNumberMethods = makeSettingGetter('number', numberMethods)
 
 function numberEntry(context) {
   const numberMethods = getNumberMethods(context)
-  const isSupportedNumberMethod = Object.keys(numberMethods)
+  const isSupportedNumberMethod = anyOf(Object.keys(numberMethods))
 
   return against(
     when({

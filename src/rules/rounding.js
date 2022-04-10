@@ -1,4 +1,4 @@
-const { against, when, match, otherwise } = require('match-iz')
+const { against, when, match, otherwise, anyOf } = require('match-iz')
 const { makeSettingGetter, getConstruct } = require('../settings')
 const { withImportDeclaration } = require('../helpers')
 
@@ -22,7 +22,9 @@ const getRoundingSupport = makeSettingGetter('supportsRound', false)
 const getRoundInfo = makeSettingGetter('rounding', roundingMethodsOrSuggestions)
 
 function mathRoundingEntry(context) {
-  const isSupportedStaticMathMethod = Object.keys(roundingMethodsOrSuggestions)
+  const isSupportedStaticMathMethod = anyOf(
+    Object.keys(roundingMethodsOrSuggestions)
+  )
   const roundingMethods = getRoundInfo(context)
   const isRoundingSupported = getRoundingSupport(context)
 

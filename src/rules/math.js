@@ -1,4 +1,4 @@
-const { match, when, against, otherwise } = require('match-iz')
+const { match, when, against, otherwise, anyOf } = require('match-iz')
 const { makeSettingGetter, getConstruct } = require('../settings')
 const { withImportDeclaration, StringFromArguments } = require('../helpers')
 
@@ -19,7 +19,7 @@ const getMathMethods = makeSettingGetter('math', mathMethods)
 
 function mathEntry(context) {
   const mathMethods = getMathMethods(context)
-  const isSupportedMathMethod = Object.keys(mathMethods)
+  const isSupportedMathMethod = anyOf(Object.keys(mathMethods))
 
   return against(
     when({

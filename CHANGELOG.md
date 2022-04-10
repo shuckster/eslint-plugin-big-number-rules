@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.8] - 2022-04-10
+### Updated
+- Dependencies
+- Update deprecated match-iz pattern
+
 ## [1.7.7] - 2022-01-24
 ### Fixed
 - https://github.com/shuckster/eslint-plugin-big-number-rules/issues/2
