@@ -188,7 +188,7 @@ import BigNumber from 'bignumber.js'
 
 For now this is ESM only, so it won't work with `require()` I'm afraid.
 
-By default, `importDeclaration` is set to `"__IGNORE__"`, meaning all files that eslint is interested in will be processed.
+By default, `importDeclaration` and `importSpecifier` are both set to `"__IGNORE__"`, meaning all files that eslint is interested in will be processed.
 
 Leaving this default in place on a large project will likely result in looooads of warnings. It's not like we use `===` just for arithmetic, right? :)
 
@@ -202,7 +202,7 @@ There are a few strategies we can employ to keep the number of warnings down to 
 
 Taken in-order I think these constitute a good approach to ending up with a finance-safe codebase: Identify what needs fixing, fix them, and refactor the calculations as you go into more centralised places.
 
-You can then use a combination of `importDeclaration` and eslint's rule-enabling comment syntax to do things file-by-file, for example:
+You can then use a combination of `importDeclaration`/`importSpecifier` and eslint's rule-enabling comment syntax to do things file-by-file, for example:
 
 ```js
 // sum.js
@@ -221,7 +221,8 @@ const sum = 1 + 2
   "plugins": ["big-number-rules"],
   "settings": {
     "big-number-rules": {
-      "importDeclaration": "bignumber.js"
+      "importDeclaration": "bignumber.js",
+      "importSpecifier": "BigNumber"
     }
   }
 }
@@ -262,6 +263,7 @@ Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
     "big-number-rules": {
       "construct": "Big",
       "importDeclaration": "__IGNORE__",
+      "importSpecifier": "__IGNORE__",
       "supportsSum": false,
       "supportsBitwise": false,
       "supportsRound": true,
