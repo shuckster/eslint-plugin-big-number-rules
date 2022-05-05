@@ -61,9 +61,20 @@ Recommended rules will `warn` about everything:
   },
   "settings": {
     "big-number-rules": {
-      // Specify the following if you want rules to apply only
-      // to files with an `import 'bignumber.js'` declaration
-      "importDeclaration": "bignumber.js"
+      // Specify the following if you want rules to
+      // apply only to files with this declaration:
+      //
+      //   import ... from 'bignumber.js'
+      //
+      "importDeclaration": "bignumber.js",
+
+      // Optionally, you can also apply rules only when
+      // importing the desired specifier from such
+      // declarations:
+      //
+      //   import BigNumber from 'bignumber.js'
+      //
+      "importSpecifier": "BigNumber"
     }
   }
 }

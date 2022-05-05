@@ -1,8 +1,19 @@
-const { match, when, otherwise, isString, anyOf } = require('match-iz')
-const { getConstruct, getImportDeclaration } = require('./settings')
+const matchiz = require('match-iz')
+const { match, against, when, otherwise } = matchiz
+const { pluck, isString, anyOf } = matchiz
+
+const {
+  getConstruct,
+  getImportDeclaration,
+  getImportSpecifier
+} = require('./settings')
 
 function hasOwn(obj, key) {
   return Object.prototype.hasOwnProperty.call(obj, key)
+}
+
+function Identity(x) {
+  return x
 }
 
 function withImportDeclaration(context, fn) {
@@ -18,10 +29,32 @@ function withImportDeclaration(context, fn) {
         x?.source?.value === importDeclarationSetting
     )
     if (importDeclaration) {
-      return fn(node)
+      const allSpecifiers = ['__IGNORE__'].concat(
+        extractSpecifiersFromImportDeclaration(importDeclaration)
+      )
+      const importSpecifierSetting = getImportSpecifier(context)
+      return allSpecifiers.includes(importSpecifierSetting)
+        ? fn(node)
+        : undefined
     }
   }
 }
+
+const extractSpecifiersFromImportDeclaration = importDeclaration =>
+  (importDeclaration?.specifiers || [])
+    .map(
+      against(
+        when(
+          {
+            type: anyOf('ImportDefaultSpecifier', 'ImportSpecifier'),
+            local: { type: 'Identifier', name: pluck(isString) }
+          },
+          Identity
+        ),
+        otherwise(null)
+      )
+    )
+    .filter(isString)
 
 function StringFromArguments(context) {
   return node => node.arguments.map(x => context.getSource(x)).join(', ')

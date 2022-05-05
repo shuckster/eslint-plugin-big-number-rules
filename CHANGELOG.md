@@ -6,6 +6,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2022-05-05
+### Updated
+- New option for ESM files: `importSpecifier`. Works in conjunction with `importDeclaration` option to further guard against running rules unless the specified import is met.
+
+  For example:
+
+    ```json
+    // .eslintrc
+    {
+      "settings": {
+        "big-number-rules": {
+          "importDeclaration": "my-lib.js",
+          "importSpecifier": "NumberProcessor"
+        }
+      }
+    }
+    ```
+
+  With this config, rules will only be applied to files with the following import:
+
+  ```js
+  import NumberProcessor from 'my-lib.js'
+  import { NumberProcessor } from 'my-lib.js'
+  import { BigNumber as NumberProcessor } from 'my-lib.js'
+  ```
+
+  The rules will not apply if `my-lib.js` is imported without `NumberProcessor`.
+
 ## [1.7.8] - 2022-04-10
 ### Updated
 - Dependencies

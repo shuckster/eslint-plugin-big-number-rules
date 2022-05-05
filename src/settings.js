@@ -19,10 +19,12 @@ const getImportDeclaration = makeSettingGetter(
   'importDeclaration',
   '__IGNORE__'
 )
+const getImportSpecifier = makeSettingGetter('importSpecifier', '__IGNORE__')
 
 module.exports = {
   makeSettingGetter,
   isPojo,
   getConstruct,
-  getImportDeclaration
+  getImportDeclaration,
+  getImportSpecifier
 }

@@ -4,6 +4,7 @@
     "big-number-rules": {
       "construct": "Big",
       "importDeclaration": "__IGNORE__",
+      "importSpecifier": "__IGNORE__",
       "supportsSum": false,
       "supportsBitwise": false,
       "supportsRound": true,
