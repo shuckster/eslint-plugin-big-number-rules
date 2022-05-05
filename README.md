@@ -1,10 +1,6 @@
-# eslint-plugin-big-number-rules
+<h1 align="center">eslint-plugin-<code>big-number-rules</code> 🔢</h1>
 
-### ✊ Enforce 💰 *finance-safe* 🧷 calculations using [bignumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#customisation)!) instead of native JavaScript arithmetic and Math functions:
-
-<img alt="Video of plugin-usage in VSCode" src="./screenshot.gif" width="500" />
-
-<p>
+<p align="center">
   <a href="https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/LICENSE">
     <img
       alt="MIT license"
@@ -17,10 +13,13 @@
     /></a>
 </p>
 
+✊ Enforce 💰 *finance-safe* 🧷 calculations using [bignumber.js](https://github.com/MikeMcl/bignumber.js/) (or something [similar](#customisation)!) instead of native JavaScript arithmetic and Math functions.
+
+<img alt="Video of plugin-usage in VSCode" src="./screenshot.gif" width="500" />
+
 [ [Customisable!](#customisation) | [ Noisy! ](#limiting-the-number-of-warnings) | [Finance-safe?](#but-why) ]
 
 ```sh
-# Installation:
 $ pnpm i eslint-plugin-big-number-rules --save-dev
 ```
 
