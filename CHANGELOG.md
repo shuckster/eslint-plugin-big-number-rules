@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.8.0] - 2022-05-05
+## [1.8.1] - 2022-05-05
 ### Updated
 - New option for ESM files: `importSpecifier`. Works in conjunction with `importDeclaration` option to further guard against running rules unless the specified import is met.
 

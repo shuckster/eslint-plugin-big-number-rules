@@ -149,7 +149,9 @@ Look for the `supportsRound` setting in the example configs.
 
 # Limiting the number of warnings
 
-Since 1.6.0 the plugin supports an `importDeclaration` option. If specified, rules will only apply to files that include an import statement that matches it:
+The plugin supports `importDeclaration` and `importSpecifier` options.
+
+If set, rules will only apply to files with the desired `import`, and optionally, the specifier too.
 
 For example:
 
@@ -159,7 +161,20 @@ For example:
   "plugins": ["big-number-rules"],
   "settings": {
     "big-number-rules": {
-      "importDeclaration": "bignumber.js"
+      // Specify the following if you want rules to
+      // apply only to files with this declaration:
+      //
+      //   import ... from 'bignumber.js'
+      //
+      "importDeclaration": "bignumber.js",
+
+      // Optionally, you can also apply rules only when
+      // importing the desired specifier from such
+      // declarations:
+      //
+      //   import BigNumber from 'bignumber.js'
+      //
+      "importSpecifier": "BigNumber"
     }
   }
 }
