@@ -1,5 +1,6 @@
 const matchiz = require('match-iz')
-const { match, against, when, otherwise } = matchiz
+const { sift } = require('sift-r')
+const { match, when, otherwise } = matchiz
 const { pluck, isString, anyOf } = matchiz
 
 const {
@@ -12,10 +13,6 @@ function hasOwn(obj, key) {
   return Object.prototype.hasOwnProperty.call(obj, key)
 }
 
-function Identity(x) {
-  return x
-}
-
 function withImportDeclaration(context, fn) {
   const importDeclarationSetting = getImportDeclaration(context)
   if (importDeclarationSetting === '__IGNORE__') {
@@ -23,12 +20,12 @@ function withImportDeclaration(context, fn) {
   }
   return node => {
     const [root] = context.getAncestors()
-    const importDeclaration = root?.body?.find(
-      x =>
-        x?.type === 'ImportDeclaration' &&
-        x?.source?.value === importDeclarationSetting
-    )
-    if (importDeclaration) {
+    const [importDeclarations] = sift(root?.body ?? [], {
+      type: 'ImportDeclaration',
+      source: { value: importDeclarationSetting }
+    })
+    if (importDeclarations.length) {
+      const [importDeclaration] = importDeclarations
       const allSpecifiers = ['__IGNORE__'].concat(
         extractSpecifiersFromImportDeclaration(importDeclaration)
       )
@@ -40,21 +37,13 @@ function withImportDeclaration(context, fn) {
   }
 }
 
-const extractSpecifiersFromImportDeclaration = importDeclaration =>
-  (importDeclaration?.specifiers || [])
-    .map(
-      against(
-        when(
-          {
-            type: anyOf('ImportDefaultSpecifier', 'ImportSpecifier'),
-            local: { type: 'Identifier', name: pluck(isString) }
-          },
-          Identity
-        ),
-        otherwise(null)
-      )
-    )
-    .filter(isString)
+const extractSpecifiersFromImportDeclaration = importDeclaration => {
+  const [specifiers] = sift(importDeclaration?.specifiers ?? [], {
+    type: anyOf('ImportDefaultSpecifier', 'ImportSpecifier'),
+    local: { type: 'Identifier', name: pluck(isString) }
+  })
+  return specifiers
+}
 
 function StringFromArguments(context) {
   return node => node.arguments.map(x => context.getSource(x)).join(', ')
@@ -65,10 +54,12 @@ function StringFromArguments(context) {
 //
 
 function identifierIsGlobalCallExpression(node) {
-  return (
-    node?.type === 'Identifier' &&
-    node?.parent?.type === 'CallExpression' &&
-    node?.parent?.callee === node
+  return match(node)(
+    when({
+      type: 'Identifier',
+      parent: { type: 'CallExpression', callee: node }
+    })(true),
+    otherwise(false)
   )
 }
 
