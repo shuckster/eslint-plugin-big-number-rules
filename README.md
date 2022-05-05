@@ -17,7 +17,9 @@
 
 <img alt="Video of plugin-usage in VSCode" src="./screenshot.gif" width="500" />
 
-[ [Customisable!](#customisation) | [ Noisy! ](#limiting-the-number-of-warnings) | [Finance-safe?](#but-why) ]
+- [Customisable!](https://github.com/shuckster/eslint-plugin-big-number-rules/wiki/Customisation)
+- [Noisy!](https://github.com/shuckster/eslint-plugin-big-number-rules/wiki/Limit-the-number-of-warnings)
+- [Finance-safe?](#but-why)
 
 ```sh
 $ pnpm i eslint-plugin-big-number-rules --save-dev
@@ -80,7 +82,7 @@ Recommended rules will `warn` about everything:
 }
 ```
 
-You can also [customise](#customisation) the transformations.
+You can also [customise](https://github.com/shuckster/eslint-plugin-big-number-rules/wiki/Customisation) the transformations.
 
 # Example transforms:
 
@@ -115,214 +117,6 @@ Math.sign(-6)     --> BigNumber(-6).comparedTo(0)
 parseFloat('1.2')           --> BigNumber('1.2')
 Number.parseFloat('2.1')    --> BigNumber('2.1')
 ```
-
-## What about Math.round(), ceil, floor?
-
-That works, just not for `bignumber.js`.
-
-The [big.js](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/eslintrc-for-other-libs/for-bigjs.json) config supports transformations:
-
-```js
-// Math.round(1.5)
-// Math.ceil(1.5)
-// Math.floor(1.5)
-//
-// ...becomes:
-Big.round(1.5, 1) // 1 = half_up (round)
-Big.round(1.5, 3) // 3 = up (ceil)
-Big.round(1.5, 0) // 0 = down (floor)
-```
-
-However, `bignumber.js` configures its rounding-mode by setting an option in its constructor. The plugin can't perform a replacement in this case, so it warns you instead:
-
-```
-big-number-rules/rounding
-  46:1   warning  is 'Math.round(10)' a financial calculation?
-                  If so, use the global constructor setting:
-
-BigNumber.set({
-  ROUNDING_MODE: BigNumber.ROUND_HALF_UP
-})
-```
-
-Look for the `supportsRound` setting in the example configs.
-
-# Limiting the number of warnings
-
-The plugin supports `importDeclaration` and `importSpecifier` options.
-
-If set, rules will only apply to files with the desired `import`, and optionally, the specifier too.
-
-For example:
-
-```json
-// .eslintrc
-{
-  "plugins": ["big-number-rules"],
-  "settings": {
-    "big-number-rules": {
-      // Specify the following if you want rules to
-      // apply only to files with this declaration:
-      //
-      //   import ... from 'bignumber.js'
-      //
-      "importDeclaration": "bignumber.js",
-
-      // Optionally, you can also apply rules only when
-      // importing the desired specifier from such
-      // declarations:
-      //
-      //   import BigNumber from 'bignumber.js'
-      //
-      "importSpecifier": "BigNumber"
-    }
-  }
-}
-```
-
-Now, rules will only be applied to files that have the following import:
-
-```js
-import BigNumber from 'bignumber.js'
-```
-
-For now this is ESM only, so it won't work with `require()` I'm afraid.
-
-By default, `importDeclaration` and `importSpecifier` are both set to `"__IGNORE__"`, meaning all files that eslint is interested in will be processed.
-
-Leaving this default in place on a large project will likely result in looooads of warnings. It's not like we use `===` just for arithmetic, right? :)
-
-There are a few strategies we can employ to keep the number of warnings down to something useful:
-
-1. Read all of the warnings and address the ones that need addressing
-
-2. Add line-by-line and file-by-file ignore comments
-
-3. Centralise your calculations into a few files only
-
-Taken in-order I think these constitute a good approach to ending up with a finance-safe codebase: Identify what needs fixing, fix them, and refactor the calculations as you go into more centralised places.
-
-You can then use a combination of `importDeclaration`/`importSpecifier` and eslint's rule-enabling comment syntax to do things file-by-file, for example:
-
-```js
-// sum.js
-import BigNumber from 'bignumber.js'
-
-const sum = 1 + 2
-//          ^^^^^ - Is this a financial calculation?
-//                  (big-number-rules/arithmetic)
-
-...
-```
-
-```json
-// .eslintrc
-{
-  "plugins": ["big-number-rules"],
-  "settings": {
-    "big-number-rules": {
-      "importDeclaration": "bignumber.js",
-      "importSpecifier": "BigNumber"
-    }
-  }
-}
-```
-
-# Any other caveats?
-
-You may need to tweak some of the generated output.
-
-For example, while developing the plugin I got this:
-
-```js
-1 + 2 + 3 - 4
-
-// auto-fixes to:
-BigNumber(BigNumber.sum(1, 2, 3)).minus(4)
-```
-
-This is valid, but the parser now produces the more efficient:
-
-```js
-BigNumber.sum(1, 2, 3).minus(4)
-```
-
-I'm not much of a hotshot with AST parsing, so you may encounter more weirdness like this. Contributions welcome. :)
-
-# Customisation
-
-Want to use something other than `bignumber.js`? Or use its shorter method-names such as `pow` and `div` instead of `exponentiatedBy` and `dividedBy`?
-
-Here's a config that works with [big.js](http://mikemcl.github.io/big.js/):
-
-```json
-// .eslintrc
-{
-  "plugins": ["big-number-rules"],
-  "settings": {
-    "big-number-rules": {
-      "construct": "Big",
-      "importDeclaration": "__IGNORE__",
-      "importSpecifier": "__IGNORE__",
-      "supportsSum": false,
-      "supportsBitwise": false,
-      "supportsRound": true,
-      "arithmetic": {
-        "+": "plus",
-        "-": "minus",
-        "/": "div",
-        "*": "times",
-        "**": "pow",
-        "%": "mod"
-      },
-      "assignment": {
-        "+=": "plus",
-        "-=": "minus",
-        "/=": "div",
-        "*=": "times",
-        "**=": "pow",
-        "%=": "mod"
-      },
-      "comparison": {
-        "<": "lt",
-        "<=": "lte",
-        "===": "eq",
-        "==": "eq",
-        "!==": ["__NEGATION__", "${L}", "eq", "${R}"],
-        "!=": ["__NEGATION__", "${L}", "eq", "${R}"],
-        ">=": "gte",
-        ">": "gt"
-      },
-      "math": {
-        "min": "min",
-        "max": "max",
-        "random": "NOT_SUPPORTED",
-        "abs": "abs",
-        "sign": ["__CONSTRUCT__(${A}).cmp(0)"],
-        "sqrt": "sqrt"
-      },
-      "rounding": {
-        "round": ["round", "${A}, 1"],
-        "ceil": ["round", "${A}, 3"],
-        "floor": ["round", "${A}, 0"]
-      },
-      "number": {
-        "parseFloat": ["__CONSTRUCT__(${A})"],
-        "toExponential": "toExponential",
-        "toFixed": "dp",
-        "toPrecision": "toPrecision",
-        "toString": "toString"
-      }
-    }
-  }
-}
-```
-
-Find more examples in the [/eslintrc-for-other-libs](https://github.com/shuckster/eslint-plugin-big-number-rules/tree/master/eslintrc-for-other-libs/) folder.
-
-Please report an [issue](https://github.com/shuckster/eslint-plugin-big-number-rules/issues) if your particular lib does something differently!
-
-There can't be *that* many edge-cases, right? ;-)
 
 # But why?
 
