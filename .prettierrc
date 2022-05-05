@@ -1,16 +1,10 @@
 {
+  "tabWidth": 2,
+  "useTabs": false,
   "arrowParens": "avoid",
-  "bracketSpacing": true,
-  "generatorStarSpacing": true,
-  "jsxBracketSameLine": false,
-  "jsxSingleQuote": true,
-  "parser": "babel-flow",
   "printWidth": 80,
-  "quoteProps": "as-needed",
+  "trailingComma": "none",
   "semi": false,
   "singleQuote": true,
-  "tabWidth": 2,
-  "trailingComma": "none",
-  "useTabs": false,
-  "yieldStarSpacing": true
+  "bracketSpacing": true
 }
