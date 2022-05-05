@@ -38,10 +38,19 @@ function withImportDeclaration(context, fn) {
 }
 
 const extractSpecifiersFromImportDeclaration = importDeclaration => {
-  const [specifiers] = sift(importDeclaration?.specifiers ?? [], {
-    type: anyOf('ImportDefaultSpecifier', 'ImportSpecifier'),
-    local: { type: 'Identifier', name: pluck(isString) }
-  })
+  const [specifiers] = sift(
+    importDeclaration?.specifiers ?? [],
+    anyOf(
+      {
+        type: 'ImportDefaultSpecifier',
+        local: { type: 'Identifier', name: pluck(isString) }
+      },
+      {
+        type: 'ImportSpecifier',
+        imported: { type: 'Identifier', name: pluck(isString) }
+      }
+    )
+  )
   return specifiers
 }
 
