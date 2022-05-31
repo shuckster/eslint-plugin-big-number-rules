@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors, memberExpression } = require('./common')
-const rule = require('../../src/rules/math')
+const rule = require('../../lib/rules/math')
 
 function makeTest(config) {
   const tests = [

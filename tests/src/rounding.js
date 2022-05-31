@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors, memberExpression } = require('./common')
-const rule = require('../../src/rules/rounding')
+const rule = require('../../lib/rules/rounding')
 
 function getRoundTests(config) {
   //
