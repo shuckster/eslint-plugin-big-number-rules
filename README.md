@@ -86,18 +86,18 @@ You can also [customise](https://github.com/shuckster/eslint-plugin-big-number-r
 
 # Example transforms:
 
-Regular arithmetic operators:
-
-```js
-0.1 + 0.2
-// --> BigNumber.sum(0.1, 0.2)
-
-19.99 * 0.1
-// --> BigNumber(19.99).multipliedBy(0.1)
-
-1 < 2
-// --> BigNumber(1).isLessThan(2)
-```
+| from                       | to                                   |
+| -------------------------- | ------------------------------------ |
+| `0.1 + 0.2`                | `BigNumber.sum(0.1, 0.2)`            |
+| `19.99 * 0.1`              | `BigNumber(19.99).multipliedBy(0.1)` |
+| `1 < 2`                    | `BigNumber(1).isLessThan(2)`         |
+| `2 >>> 4`                  | `BigNumber(2).shiftedBy(4)`          |
+| `4 << 2`                   | `BigNumber(4).shiftedBy(-2)`         |
+| `Math.min(1, 2)`           | `BigNumber.minimum(1, 2)`            |
+| `Math.sign(-6)`            | `BigNumber(-6).comparedTo(0)`        |
+| `(1).toFixed(2)`           | `BigNumber(1).decimalPlaces(2)`      |
+| `parseFloat('1.2')`        | `BigNumber('1.2')`                   |
+| `Number.parseFloat('2.1')` | `BigNumber('2.1')`                   |
 
 Can keep a chain going...
 
@@ -107,39 +107,6 @@ BigNumber.sum(0.1, 0.2) - 0.3
 
 3 ** BigNumber(1).plus(2)
 // --> BigNumber(3).exponentiatedBy(BigNumber(1).plus(2))
-```
-
-Bit-shifting...
-
-```js
-2 >>> 4
-// --> BigNumber(2).shiftedBy(4)
-
-4 << 2
-// --> BigNumber(4).shiftedBy(-2)
-```
-
-Math methods...
-
-```js
-Math.min(1, 2)
-// --> BigNumber.minimum(1, 2)
-
-Math.sign(-6)
-// --> BigNumber(-6).comparedTo(0)
-```
-
-toFixed + parseFloat...
-
-```js
-;(1).toFixed(2)
-// --> BigNumber(1).decimalPlaces(2)
-
-parseFloat('1.2')
-// --> BigNumber('1.2')
-
-Number.parseFloat('2.1')
-// --> BigNumber('2.1')
 ```
 
 # But why?
