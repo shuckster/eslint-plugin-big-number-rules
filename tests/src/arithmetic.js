@@ -19,18 +19,9 @@ function makeTest(config) {
   const {
     construct: BigNumber,
     arithmetic,
-    comparison,
-    bitwise = {},
     sum = 'sum',
-    supportsSum = true,
-    supportsBitwise = true
+    supportsSum = true
   } = config
-
-  const methods = {
-    ...arithmetic,
-    ...comparison,
-    ...bitwise
-  }
 
   const {
     ['+']: plus,
@@ -38,16 +29,8 @@ function makeTest(config) {
     ['/']: dividedBy,
     ['*']: multipliedBy,
     ['**']: exponentiatedBy,
-    ['%']: modulo,
-    ['<']: isLessThan,
-    ['<=']: isLessThanOrEqualTo,
-    ['===']: isStrictlyEqualTo,
-    ['==']: isEqualTo,
-    ['>=']: isGreaterThanOrEqualTo,
-    ['>']: isGreaterThan,
-    ['>>']: shiftedBy,
-    ['<<']: unshiftedBy
-  } = extractMethods(methods)
+    ['%']: modulo
+  } = extractMethods(arithmetic)
 
   const sumTests = supportsSum
     ? [
@@ -75,83 +58,8 @@ function makeTest(config) {
         }
       ]
 
-  const bitwiseTests = supportsBitwise
-    ? [
-        {
-          code: `1 >>> 2;`,
-          output: `${BigNumber}(1).${shiftedBy}(2);`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `1 >> 2;`,
-          output: `${BigNumber}(1).${shiftedBy}(2);`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `1 << 2;`,
-          output: `${BigNumber}(1).${shiftedBy}(-2);`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `1 << two();`,
-          output: `${BigNumber}(1).${unshiftedBy}(-two());`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) >> ${BigNumber}(2);`,
-          output: `${BigNumber}(1).${shiftedBy}(${BigNumber}(2));`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) >>> ${BigNumber}(2);`,
-          output: `${BigNumber}(1).${shiftedBy}(${BigNumber}(2));`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) << ${BigNumber}(2);`,
-          output: `${BigNumber}(1).${unshiftedBy}(-${BigNumber}(2));`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) << ${BigNumber}(two());`,
-          output: `${BigNumber}(1).${unshiftedBy}(-${BigNumber}(two()));`,
-          errors: expectingErrors(1)
-        }
-      ]
-    : [
-        {
-          code: `1 >>> 2;`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `1 << 2;`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `1 << two();`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) >> ${BigNumber}(2);`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) >>> ${BigNumber}(2);`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) << ${BigNumber}(2);`,
-          errors: expectingErrors(1)
-        },
-        {
-          code: `${BigNumber}(1) << ${BigNumber}(two());`,
-          errors: expectingErrors(1)
-        }
-      ]
-
   const tests = [
     ...sumTests,
-    ...bitwiseTests,
 
     //
     // Arithmetic
@@ -179,36 +87,6 @@ function makeTest(config) {
     {
       code: `1 % 2;`,
       output: `${BigNumber}(1).${modulo}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 < 2;`,
-      output: `${BigNumber}(1).${isLessThan}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 <= 2;`,
-      output: `${BigNumber}(1).${isLessThanOrEqualTo}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 === 2;`,
-      output: `${BigNumber}(1).${isStrictlyEqualTo}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 == 2;`,
-      output: `${BigNumber}(1).${isEqualTo}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 >= 2;`,
-      output: `${BigNumber}(1).${isGreaterThanOrEqualTo}(2);`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `1 > 2;`,
-      output: `${BigNumber}(1).${isGreaterThan}(2);`,
       errors: expectingErrors(1)
     },
 
@@ -243,46 +121,6 @@ function makeTest(config) {
     {
       code: `${BigNumber}(1) % ${BigNumber}(2);`,
       output: `${BigNumber}(1).${modulo}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) < ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${isLessThan}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) <= ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${isLessThanOrEqualTo}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) === ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${isStrictlyEqualTo}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) == ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${isEqualTo}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) !== ${BigNumber}(2);`,
-      output: `!${BigNumber}(1).${isStrictlyEqualTo}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) != ${BigNumber}(2);`,
-      output: `!${BigNumber}(1).${isEqualTo}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) >= ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${isGreaterThanOrEqualTo}(${BigNumber}(2));`,
-      errors: expectingErrors(1)
-    },
-    {
-      code: `${BigNumber}(1) > ${BigNumber}(2);`,
-      output: `${BigNumber}(1).${isGreaterThan}(${BigNumber}(2));`,
       errors: expectingErrors(1)
     }
   ]
