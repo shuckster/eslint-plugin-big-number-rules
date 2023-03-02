@@ -162,7 +162,7 @@ He was inspired by the work of these fine Internet folk:
 
 ## Contributing
 
-To support my efforts with this project, consider checking out the accountancy company I work for: [Crunch](https://www.crunch.co.uk/).
+If you'd like to offer a material contribution, I like [coffee ☕️](https://www.buymeacoffee.com/shuckster) :)
 
 # License
 
