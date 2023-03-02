@@ -55,6 +55,8 @@ Recommended rules will `warn` about everything:
   "rules": {
     "big-number-rules/arithmetic": "warn",
     "big-number-rules/assignment": "warn",
+    "big-number-rules/bitwise": "warn",
+    "big-number-rules/comparison": "warn",
     "big-number-rules/isNaN": "warn",
     "big-number-rules/math": "warn",
     "big-number-rules/number": "warn",
