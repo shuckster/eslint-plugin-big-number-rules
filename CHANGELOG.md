@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Updated
+
+- bitwise + comparison rules are now separate from arithmetic rules:
+
+  ```json
+  // .eslintrc
+  {
+    "plugins": ["big-number-rules"],
+    "rules": {
+      "big-number-rules/arithmetic": "warn",
+      "big-number-rules/bitwise": "warn",
+      "big-number-rules/comparison": "warn"
+    }
+  }
+  ```
+
+  These rules are also part of `big-number-rules/recommended`:
+
+  ```json
+  // .eslintrc
+  {
+    "plugins": ["big-number-rules"],
+    "extends": ["plugin:big-number-rules/recommended"]
+  }
+  ```
+
 ## [1.9.1] - 2022-06-01
 
 ### Fixed
