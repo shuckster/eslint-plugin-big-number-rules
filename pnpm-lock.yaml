@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   eslint: ^8.35.0
-  glob: ^8
+  glob: ^8.1.0
   load-perf: ^0.2.0
   match-iz: ^3.9.4
   nodemon: ^2.0.20
