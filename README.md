@@ -97,7 +97,7 @@ You can also [customise](https://github.com/shuckster/eslint-plugin-big-number-r
 | `4 << 2`                   | `BigNumber(4).shiftedBy(-2)`         |
 | `Math.min(1, 2)`           | `BigNumber.minimum(1, 2)`            |
 | `Math.sign(-6)`            | `BigNumber(-6).comparedTo(0)`        |
-| `(1).toFixed(2)`           | `BigNumber(1).decimalPlaces(2)`      |
+| `(1).toFixed(2)`           | `BigNumber(1).toFixed(2)`            |
 | `parseFloat('1.2')`        | `BigNumber('1.2')`                   |
 | `Number.parseFloat('2.1')` | `BigNumber('2.1')`                   |
 
