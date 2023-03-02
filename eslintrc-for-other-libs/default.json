@@ -54,7 +54,7 @@
       "number": {
         "parseFloat": ["__CONSTRUCT__(${A})"],
         "toExponential": "toExponential",
-        "toFixed": "decimalPlaces",
+        "toFixed": "toFixed",
         "toPrecision": "toPrecision",
         "toString": "toString"
       }

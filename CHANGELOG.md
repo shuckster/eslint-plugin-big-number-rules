@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.1] - 2023-02-02
+
+### Fixed
+
+- `decimalPlaces` specifies a maximum number of DPs, not a fixed number, so is not a valid substitute for `toFixed`.
+
 ## [1.10.0] - 2023-02-02
 
 ### Updated
