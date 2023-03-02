@@ -43,8 +43,8 @@
     "sift-r": "^1.4.0"
   },
   "devDependencies": {
-    "eslint": "^8.30.0",
-    "glob": "^8.0.3",
+    "eslint": "^8.35.0",
+    "glob": "^8.1.0",
     "load-perf": "^0.2.0",
     "nodemon": "^2.0.20"
   }
