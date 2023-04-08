@@ -40,13 +40,37 @@ function makeTest(config) {
     },
     {
       code: `1 === 2;`,
-      output: `${BigNumber}(1).${isStrictlyEqualTo}(2);`,
-      errors: expectingErrors(1)
+      errors: [
+        {
+          suggestions: [
+            {
+              desc: `Yes: Change to ${BigNumber}(1).${isStrictlyEqualTo}(2)`,
+              output: `${BigNumber}(1).${isStrictlyEqualTo}(2);`
+            },
+            {
+              desc: `No: Change to Object.is(1, 2)`,
+              output: 'Object.is(1, 2);'
+            }
+          ]
+        }
+      ]
     },
     {
       code: `1 == 2;`,
-      output: `${BigNumber}(1).${isEqualTo}(2);`,
-      errors: expectingErrors(1)
+      errors: [
+        {
+          suggestions: [
+            {
+              desc: `Yes: Change to ${BigNumber}(1).${isEqualTo}(2)`,
+              output: `${BigNumber}(1).${isEqualTo}(2);`
+            },
+            {
+              desc: `No: Change to Object.is(1, 2)`,
+              output: 'Object.is(1, 2);'
+            }
+          ]
+        }
+      ]
     },
     {
       code: `1 >= 2;`,
@@ -102,7 +126,7 @@ function makeTest(config) {
   ]
 
   return {
-    name: 'arithmetic',
+    name: 'comparison',
     rule,
     validTests: tests.map(test => test.output).filter(Boolean),
     invalidTests: tests

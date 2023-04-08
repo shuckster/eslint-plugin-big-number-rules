@@ -77,8 +77,24 @@ function makeTest(config) {
     //
     {
       code: `a += 2;`,
-      output: `a = ${BigNumber}(a).${plus}(2);`,
-      errors: expectingErrors(1)
+      errors: [
+        {
+          suggestions: [
+            {
+              desc: `Yes: Change to a = ${BigNumber}(a).${plus}(2)`,
+              output: `a = ${BigNumber}(a).${plus}(2);`
+            },
+            {
+              desc: `No: Change to a = ('').concat(a, 2)`,
+              output: "a = ('').concat(a, 2);"
+            },
+            {
+              desc: 'No: Change to a = `${a}${2}`',
+              output: 'a = `${a}${2}`;'
+            }
+          ]
+        }
+      ]
     },
     {
       code: `a -= 2;`,
