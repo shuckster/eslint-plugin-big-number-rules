@@ -81,15 +81,15 @@ function makeTest(config) {
         {
           suggestions: [
             {
-              desc: `Yes: Change to a = ${BigNumber}(a).${plus}(2)`,
+              desc: `Yes, make it: a = ${BigNumber}(a).${plus}(2)`,
               output: `a = ${BigNumber}(a).${plus}(2);`
             },
             {
-              desc: `No: Change to a = ('').concat(a, 2)`,
+              desc: `No, make it: a = ('').concat(a, 2)`,
               output: "a = ('').concat(a, 2);"
             },
             {
-              desc: 'No: Change to a = `${a}${2}`',
+              desc: 'No, make it: a = `${a}${2}`',
               output: 'a = `${a}${2}`;'
             }
           ]

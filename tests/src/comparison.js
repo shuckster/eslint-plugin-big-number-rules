@@ -44,11 +44,11 @@ function makeTest(config) {
         {
           suggestions: [
             {
-              desc: `Yes: Change to ${BigNumber}(1).${isStrictlyEqualTo}(2)`,
+              desc: `Yes, make it: ${BigNumber}(1).${isStrictlyEqualTo}(2)`,
               output: `${BigNumber}(1).${isStrictlyEqualTo}(2);`
             },
             {
-              desc: `No: Change to Object.is(1, 2)`,
+              desc: `No, make it: Object.is(1, 2)`,
               output: 'Object.is(1, 2);'
             }
           ]
@@ -61,11 +61,11 @@ function makeTest(config) {
         {
           suggestions: [
             {
-              desc: `Yes: Change to ${BigNumber}(1).${isEqualTo}(2)`,
+              desc: `Yes, make it: ${BigNumber}(1).${isEqualTo}(2)`,
               output: `${BigNumber}(1).${isEqualTo}(2);`
             },
             {
-              desc: `No: Change to Object.is(1, 2)`,
+              desc: `No, make it: Object.is(1, 2)`,
               output: 'Object.is(1, 2);'
             }
           ]

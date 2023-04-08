@@ -40,15 +40,15 @@ function makeTest(config) {
             {
               suggestions: [
                 {
-                  desc: `Yes: Change to ${BigNumber}.${sum}(1, 2, 3)`,
+                  desc: `Yes, make it: ${BigNumber}.${sum}(1, 2, 3)`,
                   output: `${BigNumber}.${sum}(1, 2, 3);`
                 },
                 {
-                  desc: `No: Change to ('').concat(1, 2, 3)`,
+                  desc: `No, make it: ('').concat(1, 2, 3)`,
                   output: "('').concat(1, 2, 3);"
                 },
                 {
-                  desc: 'No: Change to `${1}${2}${3}`',
+                  desc: 'No, make it: `${1}${2}${3}`',
                   output: '`${1}${2}${3}`;'
                 }
               ]
@@ -61,15 +61,15 @@ function makeTest(config) {
             {
               suggestions: [
                 {
-                  desc: `Yes: Change to ${BigNumber}.${sum}(1, two(), -3)`,
+                  desc: `Yes, make it: ${BigNumber}.${sum}(1, two(), -3)`,
                   output: `${BigNumber}.${sum}(1, two(), -3);`
                 },
                 {
-                  desc: `No: Change to ('').concat(1, two(), -3)`,
+                  desc: `No, make it: ('').concat(1, two(), -3)`,
                   output: "('').concat(1, two(), -3);"
                 },
                 {
-                  desc: 'No: Change to `${1}${two()}${-3}`',
+                  desc: 'No, make it: `${1}${two()}${-3}`',
                   output: '`${1}${two()}${-3}`;'
                 }
               ]
@@ -84,15 +84,15 @@ function makeTest(config) {
             {
               suggestions: [
                 {
-                  desc: `Yes: Change to ${BigNumber}(1).${plus}(2)`,
+                  desc: `Yes, make it: ${BigNumber}(1).${plus}(2)`,
                   output: `${BigNumber}(1).${plus}(2);`
                 },
                 {
-                  desc: `No: Change to ('').concat(1, 2)`,
+                  desc: `No, make it: ('').concat(1, 2)`,
                   output: "('').concat(1, 2);"
                 },
                 {
-                  desc: 'No: Change to `${1}${2}`',
+                  desc: 'No, make it: `${1}${2}`',
                   output: '`${1}${2}`;'
                 }
               ]
@@ -105,15 +105,15 @@ function makeTest(config) {
             {
               suggestions: [
                 {
-                  desc: `Yes: Change to ${BigNumber}(1).${plus}(two())`,
+                  desc: `Yes, make it: ${BigNumber}(1).${plus}(two())`,
                   output: `${BigNumber}(1).${plus}(two());`
                 },
                 {
-                  desc: `No: Change to ('').concat(1, two())`,
+                  desc: `No, make it: ('').concat(1, two())`,
                   output: "('').concat(1, two());"
                 },
                 {
-                  desc: 'No: Change to `${1}${two()}`',
+                  desc: 'No, make it: `${1}${two()}`',
                   output: '`${1}${two()}`;'
                 }
               ]
