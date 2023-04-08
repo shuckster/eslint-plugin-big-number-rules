@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2023-04-08
+
+BREAKING CHANGES:
+
+- Offer `String#concat()` and `Template String` replacements for `+` related rules, in addition to the default BigNumber suggestion.
+
+- Offer `Object.is()` replacement for `===` related rules, in addition to the default BigNumber suggestion.
+
+Since these are now multiple suggestions instead of just one fix, these rules no longer auto-fix, hence the major version bump.
+
 ## [1.10.2] - 2023-02-02
 
 ### Fixed
