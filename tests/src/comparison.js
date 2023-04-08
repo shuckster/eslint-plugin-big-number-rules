@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors } = require('./common')
-const rule = require('../../lib/rules/arithmetic')
+const rule = require('../../lib/rules/comparison')
 
 function extractMethods(ops) {
   return Object.entries(ops).reduce((acc, [key, value]) => {
