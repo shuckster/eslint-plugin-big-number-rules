@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const { expectingErrors } = require('./common')
-const rule = require('../../lib/rules/arithmetic')
+const rule = require('../../lib/rules/bitwise')
 
 function extractMethods(ops) {
   return Object.entries(ops).reduce((acc, [key, value]) => {
@@ -97,7 +97,7 @@ function makeTest(config) {
   const tests = [...bitwiseTests]
 
   return {
-    name: 'arithmetic',
+    name: 'bitwise',
     rule,
     validTests: tests.map(test => test.output).filter(Boolean),
     invalidTests: tests
