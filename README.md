@@ -171,8 +171,9 @@ Since `v2.0.0` the plugin will now offer `String#concat()` and `Template String`
 // -> `${0.1}${0.2}`
 
 result += 0.3
-// -> BigNumber(result).plus(0.3)
+// -> result = BigNumber(result).plus(0.3)
 // -> result = ('').concat(result, 0.3)
+// -> result = `${result}${0.3}`
 ```
 
 It will also offer `Object.is()` as a suggestion for `===` related rules:
