@@ -78,7 +78,17 @@ Recommended rules will `warn` about everything:
       //
       //   import BigNumber from 'bignumber.js'
       //
-      "importSpecifier": "BigNumber"
+      "importSpecifier": "BigNumber",
+
+      // Optionally, you can disable suggestions for
+      // one or more infix operators using the following
+      // setting:
+      //
+      "unsafelyIgnoreSuggestionsForOperators": []
+      //
+      // Example:
+      //
+      //   "unsafelyIgnoreSuggestionsForOperators": ["+", "+="]
     }
   }
 }
@@ -88,9 +98,10 @@ You can also [customise](https://github.com/shuckster/eslint-plugin-big-number-r
 
 # Example transforms:
 
-| from                       | to                                   |
-| -------------------------- | ------------------------------------ |
-| `0.1 + 0.2`                | `BigNumber.sum(0.1, 0.2)`            |
+| from                       | to                                   | plugin will also suggest                                                                                          |
+| -------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `0.1 + 0.2`                | `BigNumber.sum(0.1, 0.2)`            | `('').concat(0.1, 0.2)` and \``${0.1}${0.2}`\` when you want string-concatenation instead of financial arithmetic |
+| `result === 0.3`           | `BigNumber(result).isEqualTo(0.3)`   | `Object.is(result, 0.3)` when you want to strictly compare things that are not financial calculations             |
 | `19.99 * 0.1`              | `BigNumber(19.99).multipliedBy(0.1)` |
 | `1 < 2`                    | `BigNumber(1).isLessThan(2)`         |
 | `2 >>> 4`                  | `BigNumber(2).shiftedBy(4)`          |
@@ -148,6 +159,49 @@ Significand ------>-------->----------^
 IEEE-754 defines various rules for marshalling these fractions into a decimal, but as you can probably imagine it's not always exact.
 
 Libraries like `bignumber.js` helps us work around this. Using them isn't complicated, but it does require a little discipline and vigilance to keep on top of, so an [eslint](https://eslint.org/) plugin to warn-about the use of JavaScript's native-math methods seemed like a good way to do that.
+
+## But I use `+` for string-concatenation!
+
+Since `v2.0.0` the plugin will now offer `String#concat()` and `Template String` replacements for `+` related rules, in addition to the default BigNumber suggestion:
+
+```js
+0.1 + 0.2
+// -> BigNumber.sum(0.1, 0.2)
+// -> ('').concat(0.1, 0.2)
+// -> `${0.1}${0.2}`
+
+result += 0.3
+// -> BigNumber(result).plus(0.3)
+// -> result = ('').concat(result, 0.3)
+```
+
+It will also offer `Object.is()` as a suggestion for `===` related rules:
+
+```js
+0.1 === 0.2
+// -> BigNumber(0.1).isEqualTo(0.2)
+// -> Object.is(0.1, 0.2)
+
+0.1 !== 0.2
+// -> !BigNumber(0.1).isEqualTo(0.2)
+// -> !Object.is(0.1, 0.2)
+```
+
+## I want to take the risk of ignoring certain infix operators!
+
+Since `v2.1.0` you can use the `unsafelyIgnoreSuggestionsForOperators` option to ignore one or more suggestions for the infix operators:
+
+```json
+// .eslintrc
+{
+  "plugins": ["big-number-rules"],
+  "settings": {
+    "big-number-rules": {
+      "unsafelyIgnoreSuggestionsForOperators": ["+", "+="]
+    }
+  }
+}
+```
 
 # Credits
 
