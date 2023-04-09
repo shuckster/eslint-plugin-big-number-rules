@@ -100,7 +100,7 @@ You can also [customise](https://github.com/shuckster/eslint-plugin-big-number-r
 
 | from                       | to                                   | plugin will also suggest                                                                                          |
 | -------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `0.1 + 0.2`                | `BigNumber.sum(0.1, 0.2)`            | `('').concat(0.1, 0.2)` and \``${0.1}${0.2}`\` when you want string-concatenation instead of financial arithmetic |
+| `0.1 + 0.2`                | `BigNumber.sum(0.1, 0.2)`            | `('').concat(0.1, 0.2)` and `` `${0.1}${0.2}` `` when you want string-concatenation instead of financial arithmetic |
 | `result === 0.3`           | `BigNumber(result).isEqualTo(0.3)`   | `Object.is(result, 0.3)` when you want to strictly compare things that are not financial calculations             |
 | `19.99 * 0.1`              | `BigNumber(19.99).multipliedBy(0.1)` |
 | `1 < 2`                    | `BigNumber(1).isLessThan(2)`         |
