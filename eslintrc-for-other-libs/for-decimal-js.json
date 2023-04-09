@@ -9,6 +9,7 @@
       "supportsBitwise": false,
       "supportsRound": true,
       "sum": "sum",
+      "unsafelyIgnoreSuggestionsForOperators": [],
       "arithmetic": {
         "+": "plus",
         "-": "minus",
