@@ -2,6 +2,7 @@ module.exports = {
   makeTest
 }
 
+const dedent = require('dedent')
 const { expectingErrors } = require('./common')
 const rule = require('../../lib/rules/arithmetic')
 
@@ -31,6 +32,39 @@ function makeTest(config) {
     ['**']: exponentiatedBy,
     ['%']: modulo
   } = extractMethods(arithmetic)
+
+  const passThruTests = [
+    //
+    // Pass-through literals
+    //
+    { output: `"one" + "two";` },
+    { output: `"one" + "two" + "3";` },
+    { output: `"one" + "two" + "3" + "four";` },
+    {
+      output: `
+        const obj = { one: "one", two: "two" };
+        let val = obj.one + obj.two;
+      `
+    },
+    {
+      output: `
+        const arr = ["one", "two"];
+        let val = arr[0] + arr[1];
+      `
+    },
+    {
+      output: `
+        const arr = [{ val: "one" }, { val:"two" }];
+        let val = arr[0].val + arr[1].val;
+      `
+    },
+    {
+      output: `
+        const arr = [{ val: "one" }, { val: ["two"] }];
+        let val = arr[0].val + arr[1].val[0];
+      `
+    }
+  ]
 
   const sumTests = supportsSum
     ? [
@@ -75,6 +109,39 @@ function makeTest(config) {
               ]
             }
           ]
+        },
+        ...passThruTests,
+        {
+          code: dedent`
+            const arr = [{ val: "1" }, { val: ["2"] }];
+            let val = arr[0].val + arr[1].val[0];
+          `,
+          errors: [
+            {
+              suggestions: [
+                {
+                  desc: `Yes, make it: ${BigNumber}.${sum}(arr[0].val, arr[1].val[0])`,
+                  output: dedent`
+                    const arr = [{ val: "1" }, { val: ["2"] }];
+                    let val = ${BigNumber}.${sum}(arr[0].val, arr[1].val[0]);
+                  `
+                },
+                {
+                  desc: `No, make it: ('').concat(arr[0].val, arr[1].val[0])`,
+                  output: dedent`
+                    const arr = [{ val: "1" }, { val: ["2"] }];
+                    let val = ('').concat(arr[0].val, arr[1].val[0]);
+                  `
+                },
+                {
+                  desc: 'No, make it: `${arr[0].val}${arr[1].val[0]}`',
+                  output:
+                    'const arr = [{ val: "1" }, { val: ["2"] }];\n' +
+                    'let val = `${arr[0].val}${arr[1].val[0]}`;'
+                }
+              ]
+            }
+          ]
         }
       ]
     : [
@@ -115,6 +182,39 @@ function makeTest(config) {
                 {
                   desc: 'No, make it: `${1}${two()}`',
                   output: '`${1}${two()}`;'
+                }
+              ]
+            }
+          ]
+        },
+        ...passThruTests,
+        {
+          code: dedent`
+            const arr = [{ val: "1" }, { val: ["2"] }];
+            let val = arr[0].val + arr[1].val[0];
+          `,
+          errors: [
+            {
+              suggestions: [
+                {
+                  desc: `Yes, make it: ${BigNumber}(arr[0].val).${plus}(arr[1].val[0])`,
+                  output: dedent`
+                    const arr = [{ val: "1" }, { val: ["2"] }];
+                    let val = ${BigNumber}(arr[0].val).${plus}(arr[1].val[0]);
+                  `
+                },
+                {
+                  desc: `No, make it: ('').concat(arr[0].val, arr[1].val[0])`,
+                  output: dedent`
+                    const arr = [{ val: "1" }, { val: ["2"] }];
+                    let val = ('').concat(arr[0].val, arr[1].val[0]);
+                  `
+                },
+                {
+                  desc: 'No, make it: `${arr[0].val}${arr[1].val[0]}`',
+                  output:
+                    'const arr = [{ val: "1" }, { val: ["2"] }];\n' +
+                    'let val = `${arr[0].val}${arr[1].val[0]}`;'
                 }
               ]
             }
@@ -193,6 +293,6 @@ function makeTest(config) {
     name: 'arithmetic',
     rule,
     validTests: tests.map(test => test.output).filter(Boolean),
-    invalidTests: tests
+    invalidTests: tests.filter(test => test.errors)
   }
 }
