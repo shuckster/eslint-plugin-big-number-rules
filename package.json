@@ -39,13 +39,14 @@
     "build:all": "echo 'No build process'"
   },
   "dependencies": {
-    "match-iz": "^3.9.4",
+    "match-iz": "^3.10.0",
     "sift-r": "^1.4.0"
   },
   "devDependencies": {
-    "eslint": "^8.35.0",
+    "dedent": "^0.7.0",
+    "eslint": "^8.38.0",
     "glob": "^8.1.0",
     "load-perf": "^0.2.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.22"
   }
 }
