@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2023-04-12
+
+### Updated
+
+- Improved detection of string-literals that definitely don't coerce to numbers. Limited to literals that can be detected in the current scope, but an improvement:
+
+```js
+const foo = 'one'
+const bar = 'two'
+
+// Before v2.2.0:
+foo + bar
+// -> BigNumber.sum(foo, bar)
+
+// After v2.2.0:
+foo + bar
+// -> foo + bar
+```
+
 ## [2.1.0] - 2023-04-09
 
 ### Added
