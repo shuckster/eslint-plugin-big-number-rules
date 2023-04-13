@@ -204,6 +204,8 @@ Since `v2.1.0` you can use the `unsafelyIgnoreSuggestionsForOperators` option to
 }
 ```
 
+> 👋 **Note:** Since `v2.2.0` I hope you will be less likely to want to use this setting because detection of concat operations on string-literals [is improved](https://github.com/shuckster/eslint-plugin-big-number-rules/blob/master/CHANGELOG.md#220---2023-04-12).
+
 # Credits
 
 `eslint-plugin-big-number-rules` was written by [Conan Theobald](https://github.com/shuckster/).
