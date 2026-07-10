@@ -25,6 +25,8 @@ const suites = [
   require('./rounding')
 ]
 
+const { makeTests: makeIgnoreOperatorsTests } = require('./ignore-operators')
+
 let errorCode = 0
 
 function main() {
@@ -32,6 +34,8 @@ function main() {
     .then(testAllSuitesAgainstEslintConfig)
     .then(logWhenDoneWith())
     .then(runTestSuitesAgainstCustomEslintConfigs)
+    .then(runIgnoreOperatorsTests)
+    .then(logWhenDoneWith({ settings: { 'big-number-rules': { construct: 'BigNumber (unsafelyIgnoreSuggestionsForOperators)' } } }))
     .finally(() => {
       console.log(new Date().toTimeString())
       process.exit(errorCode)
@@ -91,6 +95,24 @@ function runTestSuitesAgainstCustomEslintConfigs() {
       logWhenDoneWith(config)
     )
   }
+}
+
+function runIgnoreOperatorsTests() {
+  const tests = makeIgnoreOperatorsTests()
+  const ruleTestersToRun = tests.map(({ name, rule, eslintSettings, testCases }) => {
+    const ruleTester = new RuleTester(eslintSettings)
+    const config = { construct: 'BigNumber' }
+    return runRuleTester({ ruleTester, config, name, rule, testCases })
+  })
+  return Promise.allSettled(ruleTestersToRun)
+    .then(filter(result => result.status === 'rejected'))
+    .then(map(result => result.reason))
+    .then(errors => {
+      if (errors.length) {
+        errorCode = 1
+      }
+      errors.forEach(console.error)
+    })
 }
 
 function logWhenDoneWith(config) {
