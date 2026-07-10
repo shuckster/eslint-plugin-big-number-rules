@@ -35,7 +35,7 @@ function main() {
     .then(logWhenDoneWith())
     .then(runTestSuitesAgainstCustomEslintConfigs)
     .then(runIgnoreOperatorsTests)
-    .then(() => console.log('Tests finished (unsafelyIgnoreSuggestionsForOperators)'))
+    .then(logWhenDoneWith({ settings: { 'big-number-rules': { construct: 'BigNumber (unsafelyIgnoreSuggestionsForOperators)' } } }))
     .finally(() => {
       console.log(new Date().toTimeString())
       process.exit(errorCode)
