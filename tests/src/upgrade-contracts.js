@@ -185,9 +185,9 @@ function assertImportSpecifierSift() {
   )
   assert.strictEqual(passthrough('keep'), 'keep')
 
-  // StringFromArguments uses context.getSource — still callable
+  // StringFromArguments uses context.sourceCode.getText
   const sfa = StringFromArguments({
-    getSource: n => n.value
+    sourceCode: { getText: n => n.value }
   })
   assert.strictEqual(
     sfa({ arguments: [{ value: 'a' }, { value: 'b' }] }),
