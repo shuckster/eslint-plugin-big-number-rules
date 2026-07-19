@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       match-iz:
-        specifier: ^3.10.0
-        version: 3.10.0
+        specifier: ^5.1.0
+        version: 5.1.0
       sift-r:
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.5.0
+        version: 1.5.0
     devDependencies:
       dedent:
         specifier: ^0.7.0
@@ -390,8 +390,8 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
-  match-iz@3.10.0:
-    resolution: {integrity: sha512-OZAB8gccc/uUnX06hquX1hSqphQYFDsF+Ka+lLYfcYWchN3ZSVKm7Lh1xj6Yewqr63HA1+fRUUhIGHC1Xv+7SQ==}
+  match-iz@5.1.0:
+    resolution: {integrity: sha512-DATOmK37Xl060MAFQwXU8VE0JG9vXkuKiiN2h2VVf1BfwEQeekNgxsNqY8RVzojXtkr2Rl3nPYZ8ZKLIEa0dcA==}
     engines: {node: '>=10'}
 
   minimatch@3.1.2:
@@ -513,8 +513,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  sift-r@1.4.0:
-    resolution: {integrity: sha512-Dn4mysTIrvaOrBVhrwrAmoPkyNrX1qR4mL8ejfnaQujXFPAyUUuSQfeJvVkEXT8N4ikeR4I66bU2ON8iX8/1ew==}
+  sift-r@1.5.0:
+    resolution: {integrity: sha512-yEY4f0omT/+eaUasjohMPD/hkTL+gnTXxp7KE/nQAfvaCxo1ti1dnav8YYCdZKFPb+7d4tK35HAt4ifoqA7Y2Q==}
     engines: {node: '>=15'}
 
   simple-update-notifier@1.1.0:
@@ -971,7 +971,7 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
-  match-iz@3.10.0: {}
+  match-iz@5.1.0: {}
 
   minimatch@3.1.2:
     dependencies:
@@ -1080,9 +1080,9 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  sift-r@1.4.0:
+  sift-r@1.5.0:
     dependencies:
-      match-iz: 3.10.0
+      match-iz: 5.1.0
 
   simple-update-notifier@1.1.0:
     dependencies:

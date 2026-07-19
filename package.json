@@ -39,8 +39,8 @@
     "build:all": "echo 'No build process'"
   },
   "dependencies": {
-    "match-iz": "^3.10.0",
-    "sift-r": "^1.4.0"
+    "match-iz": "^5.1.0",
+    "sift-r": "^1.5.0"
   },
   "devDependencies": {
     "dedent": "^0.7.0",
