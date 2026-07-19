@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Runtime deps: `match-iz` ^5.1.0, `sift-r` ^1.5.0 (visitor handlers use `otherwise()` for match-iz v5)
 - Rules use `context.sourceCode.getText` / `getAncestors` / `getScope` (ESLint 9-ready)
-- `engines.node`: `>=18.18.0`
-- Dev ESLint 9 + project `eslint.config.js` (flat); removed `.eslintrc`
+- `engines.node`: `^20.19.0 || ^22.13.0 || >=24` (aligned with ESLint 10); `.nvmrc` → 24
+- Dev ESLint 10 + project `eslint.config.js` (flat); removed `.eslintrc`
 - Dev tooling: nodemon 3, dedent 1; dropped `glob` (fixtures listed via `fs.readdir`)
 
 ### Fixed
