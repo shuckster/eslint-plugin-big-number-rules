@@ -1,4 +1,3 @@
-const glob = require('glob')
 const fs = require('fs')
 const path = require('path')
 
@@ -21,7 +20,7 @@ const baseEslintSettings = {
 module.exports = {
   configsPath,
   baseEslintSettings,
-  globConfigForOtherLibs,
+  listConfigJsonFiles,
   getExampleEslintConfigsForOtherLibs,
   loadJsonFile,
   expectingErrors,
@@ -70,31 +69,21 @@ function expectingErrors(numberOfErrors) {
 //
 
 function getExampleEslintConfigsForOtherLibs() {
-  return globConfigForOtherLibs()
-    .then(files => files.filter($ => !$.endsWith('/default.json')))
+  return listConfigJsonFiles()
+    .then(files => files.filter($ => !$.endsWith(`${path.sep}default.json`)))
     .then($ => $.map(loadJsonFile))
     .then($ => Promise.all($))
 }
 
-function globConfigForOtherLibs() {
-  return Promise.resolve(configsPath)
-    .then($ => path.join($, '/**/*.json'))
-    .then($ => globFilesOnly($))
-}
-
-function globFilesOnly(path) {
-  return new Promise((resolve, reject) =>
-    glob(path, {}, (err, files) =>
-      err ? reject(err) : Promise.all(files.map(fileOnly)).then(resolve)
+/** List *.json files under eslintrc-for-other-libs (no glob dependency). */
+function listConfigJsonFiles() {
+  return fs.promises
+    .readdir(configsPath, { withFileTypes: true })
+    .then(entries =>
+      entries
+        .filter(e => e.isFile() && e.name.endsWith('.json'))
+        .map(e => path.join(configsPath, e.name))
     )
-  )
-}
-
-function fileOnly(potentialFile) {
-  return Promise.resolve(potentialFile)
-    .then(fs.statSync)
-    .then($ => $.isFile() || Promise.reject.bind(Promise, $))
-    .then(() => potentialFile)
 }
 
 function loadJsonFile(fileName) {

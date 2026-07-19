@@ -45,7 +45,6 @@
   "devDependencies": {
     "dedent": "^1.7.2",
     "eslint": "^8.38.0",
-    "glob": "^8.1.0",
     "load-perf": "^0.2.0",
     "nodemon": "^3.1.14"
   },
