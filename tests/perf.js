@@ -24,10 +24,6 @@ const root = path.resolve(__dirname, '..')
 const pkg = require(path.join(root, 'package.json'))
 const RUNS = Math.max(1, parseInt(process.env.PERF_RUNS || '5', 10) || 5)
 
-function ms(hr) {
-  return hr[0] * 1e3 + hr[1] / 1e6
-}
-
 /** Cold require of `modulePath` in a disposable Node process; returns ms or null. */
 function coldRequireMs(modulePath) {
   // Inline script keeps the child self-contained (no shared caches across samples).
