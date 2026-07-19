@@ -1,2 +1,0 @@
-rule is using `context.getScope()`, which is deprecated and will be removed in ESLint v9. Please use `sourceCode.getScope()` instead.
-rule is using `context.getSource()`, which is deprecated and will be removed in ESLint v9. Please use `sourceCode.getText()` instead.
