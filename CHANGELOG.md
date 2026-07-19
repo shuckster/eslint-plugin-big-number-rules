@@ -22,7 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rules use `context.sourceCode.getText` / `getAncestors` / `getScope` (ESLint 9-ready)
 - `engines.node`: `^20.19.0 || ^22.13.0 || >=24` (aligned with ESLint 10); `.nvmrc` → 24
 - Dev ESLint 10 + project `eslint.config.js` (flat); removed `.eslintrc`
-- Dev tooling: nodemon 3, dedent 1; dropped `glob` (fixtures listed via `fs.readdir`)
+- Dev tooling: nodemon 3, dedent 1, ESLint 10; dropped `glob` and abandoned `load-perf`
+- `pnpm perf` is a native cold-load benchmark (plugin entry, deps, each rule)
 
 ### Fixed
 
