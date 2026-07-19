@@ -3,10 +3,12 @@ const RuleTester = require('eslint').RuleTester
 
 const {
   baseEslintSettings,
+  toRuleTesterConfig,
   configsPath,
   getExampleEslintConfigsForOtherLibs,
   loadJsonFile,
   bigNumberRules,
+  uniqueValidTests,
   filter,
   map,
   flow,
@@ -52,16 +54,24 @@ function main() {
 }
 
 function testAllSuitesAgainstEslintConfig(customEslintSettings) {
-  const eslintSettings = {
+  const merged = {
     ...baseEslintSettings,
-    ...customEslintSettings
+    ...customEslintSettings,
+    languageOptions: {
+      ...baseEslintSettings.languageOptions,
+      ...customEslintSettings?.languageOptions
+    },
+    settings:
+      customEslintSettings?.settings ?? baseEslintSettings.settings
   }
+  const eslintSettings = toRuleTesterConfig(merged)
+  // big-number-rules settings still live on the merged object for suite builders
+  const config = bigNumberRules(merged)
   const ruleTester = new RuleTester(eslintSettings)
-  const config = bigNumberRules(eslintSettings)
   const suitesOpts = suites
     .map(({ makeTest }) => makeTest(config))
     .map(({ invalidTests: invalid, validTests: valid, ...rest }) => ({
-      testCases: { valid, invalid },
+      testCases: { valid: uniqueValidTests(valid), invalid },
       ...rest
     }))
 
@@ -109,7 +119,7 @@ function runTestSuitesAgainstCustomEslintConfigs() {
 function runIgnoreOperatorsTests() {
   const tests = makeIgnoreOperatorsTests()
   const ruleTestersToRun = tests.map(({ name, rule, eslintSettings, testCases }) => {
-    const ruleTester = new RuleTester(eslintSettings)
+    const ruleTester = new RuleTester(toRuleTesterConfig(eslintSettings))
     const config = { construct: 'BigNumber' }
     return runRuleTester({ ruleTester, config, name, rule, testCases })
   })

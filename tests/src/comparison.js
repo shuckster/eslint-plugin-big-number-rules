@@ -2,7 +2,7 @@ module.exports = {
   makeTest
 }
 
-const { expectingErrors } = require('./common')
+const {expectingErrors, errorWithSuggestions } = require('./common')
 const rule = require('../../lib/rules/comparison')
 
 function extractMethods(ops) {
@@ -41,8 +41,7 @@ function makeTest(config) {
     {
       code: `1 === 2;`,
       errors: [
-        {
-          suggestions: [
+            errorWithSuggestions([
             {
               desc: `Yes, make it: ${BigNumber}(1).${isStrictlyEqualTo}(2)`,
               output: `${BigNumber}(1).${isStrictlyEqualTo}(2);`
@@ -51,15 +50,13 @@ function makeTest(config) {
               desc: `No, make it: Object.is(1, 2)`,
               output: 'Object.is(1, 2);'
             }
-          ]
-        }
+          ])
       ]
     },
     {
       code: `1 == 2;`,
       errors: [
-        {
-          suggestions: [
+            errorWithSuggestions([
             {
               desc: `Yes, make it: ${BigNumber}(1).${isEqualTo}(2)`,
               output: `${BigNumber}(1).${isEqualTo}(2);`
@@ -68,8 +65,7 @@ function makeTest(config) {
               desc: `No, make it: Object.is(1, 2)`,
               output: 'Object.is(1, 2);'
             }
-          ]
-        }
+          ])
       ]
     },
     {

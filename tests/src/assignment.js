@@ -2,7 +2,7 @@ module.exports = {
   makeTest
 }
 
-const { expectingErrors } = require('./common')
+const {expectingErrors, errorWithSuggestions } = require('./common')
 const rule = require('../../lib/rules/assignment')
 
 function extractMethods(ops) {
@@ -78,8 +78,7 @@ function makeTest(config) {
     {
       code: `a += 2;`,
       errors: [
-        {
-          suggestions: [
+            errorWithSuggestions([
             {
               desc: `Yes, make it: a = ${BigNumber}(a).${plus}(2)`,
               output: `a = ${BigNumber}(a).${plus}(2);`
@@ -92,8 +91,7 @@ function makeTest(config) {
               desc: 'No, make it: a = `${a}${2}`',
               output: 'a = `${a}${2}`;'
             }
-          ]
-        }
+          ])
       ]
     },
     {

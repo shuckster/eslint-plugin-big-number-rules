@@ -3,7 +3,7 @@ module.exports = {
 }
 
 const dedent = require('dedent')
-const { expectingErrors } = require('./common')
+const {expectingErrors, errorWithSuggestions } = require('./common')
 const rule = require('../../lib/rules/arithmetic')
 
 function extractMethods(ops) {
@@ -71,8 +71,7 @@ function makeTest(config) {
         {
           code: `1 + 2 + 3;`,
           errors: [
-            {
-              suggestions: [
+            errorWithSuggestions([
                 {
                   desc: `Yes, make it: ${BigNumber}.${sum}(1, 2, 3)`,
                   output: `${BigNumber}.${sum}(1, 2, 3);`
@@ -85,15 +84,13 @@ function makeTest(config) {
                   desc: 'No, make it: `${1}${2}${3}`',
                   output: '`${1}${2}${3}`;'
                 }
-              ]
-            }
+              ])
           ]
         },
         {
           code: `1 + two() + -3;`,
           errors: [
-            {
-              suggestions: [
+            errorWithSuggestions([
                 {
                   desc: `Yes, make it: ${BigNumber}.${sum}(1, two(), -3)`,
                   output: `${BigNumber}.${sum}(1, two(), -3);`
@@ -106,8 +103,7 @@ function makeTest(config) {
                   desc: 'No, make it: `${1}${two()}${-3}`',
                   output: '`${1}${two()}${-3}`;'
                 }
-              ]
-            }
+              ])
           ]
         },
         ...passThruTests,
@@ -117,8 +113,7 @@ function makeTest(config) {
             let val = arr[0].val + arr[1].val[0];
           `,
           errors: [
-            {
-              suggestions: [
+            errorWithSuggestions([
                 {
                   desc: `Yes, make it: ${BigNumber}.${sum}(arr[0].val, arr[1].val[0])`,
                   output: dedent`
@@ -139,8 +134,7 @@ function makeTest(config) {
                     'const arr = [{ val: "1" }, { val: ["2"] }];\n' +
                     'let val = `${arr[0].val}${arr[1].val[0]}`;'
                 }
-              ]
-            }
+              ])
           ]
         }
       ]
@@ -148,8 +142,7 @@ function makeTest(config) {
         {
           code: `1 + 2;`,
           errors: [
-            {
-              suggestions: [
+            errorWithSuggestions([
                 {
                   desc: `Yes, make it: ${BigNumber}(1).${plus}(2)`,
                   output: `${BigNumber}(1).${plus}(2);`
@@ -162,15 +155,13 @@ function makeTest(config) {
                   desc: 'No, make it: `${1}${2}`',
                   output: '`${1}${2}`;'
                 }
-              ]
-            }
+              ])
           ]
         },
         {
           code: `1 + two();`,
           errors: [
-            {
-              suggestions: [
+            errorWithSuggestions([
                 {
                   desc: `Yes, make it: ${BigNumber}(1).${plus}(two())`,
                   output: `${BigNumber}(1).${plus}(two());`
@@ -183,8 +174,7 @@ function makeTest(config) {
                   desc: 'No, make it: `${1}${two()}`',
                   output: '`${1}${two()}`;'
                 }
-              ]
-            }
+              ])
           ]
         },
         ...passThruTests,
@@ -194,8 +184,7 @@ function makeTest(config) {
             let val = arr[0].val + arr[1].val[0];
           `,
           errors: [
-            {
-              suggestions: [
+            errorWithSuggestions([
                 {
                   desc: `Yes, make it: ${BigNumber}(arr[0].val).${plus}(arr[1].val[0])`,
                   output: dedent`
@@ -216,8 +205,7 @@ function makeTest(config) {
                     'const arr = [{ val: "1" }, { val: ["2"] }];\n' +
                     'let val = `${arr[0].val}${arr[1].val[0]}`;'
                 }
-              ]
-            }
+              ])
           ]
         }
       ]

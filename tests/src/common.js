@@ -4,26 +4,52 @@ const path = require('path')
 const { match, when, otherwise, not, isArray } = require('match-iz')
 
 const configsPath = path.resolve(__dirname, '../../eslintrc-for-other-libs')
+
+/** Flat RuleTester defaults (ESLint 9+). languageOptions replaces parserOptions/env. */
 const baseEslintSettings = {
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 11,
     sourceType: 'module' // For testing withImportDeclaration()
-  },
-  env: {
-    node: true,
-    browser: true,
-    es6: true
-  },
-  extends: ['eslint:recommended']
+  }
+}
+
+/**
+ * Normalize eslintrc-shaped configs (fixtures under eslintrc-for-other-libs)
+ * and flat configs into a RuleTester constructor config for ESLint 9+.
+ * Strips plugins/extends/env/rules which RuleTester does not use when rules
+ * are passed directly to .run().
+ */
+function toRuleTesterConfig(config = {}) {
+  const parserOptions = config.parserOptions || {}
+  const languageOptions = {
+    ecmaVersion: 11,
+    sourceType: 'module',
+    ...config.languageOptions,
+    ...(parserOptions.ecmaVersion != null
+      ? { ecmaVersion: parserOptions.ecmaVersion }
+      : {}),
+    ...(parserOptions.sourceType != null
+      ? { sourceType: parserOptions.sourceType }
+      : {})
+  }
+
+  const out = { languageOptions }
+  if (config.settings) {
+    out.settings = config.settings
+  }
+  return out
 }
 
 module.exports = {
   configsPath,
   baseEslintSettings,
+  toRuleTesterConfig,
   listConfigJsonFiles,
   getExampleEslintConfigsForOtherLibs,
   loadJsonFile,
   expectingErrors,
+  errorWithSuggestions,
+  uniqueValidTests,
   bigNumberRules,
   memberExpression,
   filter,
@@ -56,12 +82,38 @@ function memberExpression(config, setting, fn, arg) {
   )
 }
 
+const financialMessage = /is '[^']+' a financial calculation\?/
+
 function expectingErrors(numberOfErrors) {
   return Array(numberOfErrors)
     .fill()
     .map(() => ({
-      message: /is '[^']+' a financial calculation\?/
+      message: financialMessage
     }))
+}
+
+/** ESLint 9+ RuleTester requires message/messageId on every error object. */
+function errorWithSuggestions(suggestions) {
+  return {
+    message: financialMessage,
+    suggestions
+  }
+}
+
+/**
+ * Dedupe valid cases for ESLint 9+ RuleTester (rejects identical codes).
+ * Fix-outputs used as "still valid" fixtures often collide (e.g. >> vs >>>).
+ */
+function uniqueValidTests(validTests = []) {
+  const seen = new Set()
+  const out = []
+  for (const item of validTests) {
+    const key = typeof item === 'string' ? item : item?.code
+    if (key == null || seen.has(key)) continue
+    seen.add(key)
+    out.push(item)
+  }
+  return out
 }
 
 //

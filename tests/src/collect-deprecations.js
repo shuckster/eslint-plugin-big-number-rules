@@ -20,19 +20,20 @@ process.on('warning', w => {
 })
 
 const tester = new RuleTester({
-  parserOptions: { ecmaVersion: 11, sourceType: 'module' },
-  env: { es6: true }
+  languageOptions: { ecmaVersion: 11, sourceType: 'module' }
 })
 
 tester.run('arithmetic-deprecation-probe', arithmetic, {
   valid: ['BigNumber(1).plus(2);'],
   invalid: [
     {
-      code: '1 + 2;',
+      code: '1 - 2;',
+      output: 'BigNumber(1).minus(2);',
       errors: [{ message: /financial calculation/ }]
     },
     {
-      code: 'const x = 1; x + 2;',
+      code: 'const x = 1; x - 2;',
+      output: 'const x = 1; BigNumber(x).minus(2);',
       errors: [{ message: /financial calculation/ }]
     }
   ]

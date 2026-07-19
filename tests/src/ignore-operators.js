@@ -2,7 +2,7 @@ module.exports = {
   makeTests
 }
 
-const { baseEslintSettings, expectingErrors } = require('./common')
+const {baseEslintSettings, expectingErrors, errorWithSuggestions } = require('./common')
 
 const arithmeticRule = require('../../lib/rules/arithmetic')
 const assignmentRule = require('../../lib/rules/assignment')
@@ -198,8 +198,7 @@ function makeTests() {
           {
             code: `1 + 2;`,
             errors: [
-              {
-                suggestions: [
+            errorWithSuggestions([
                   {
                     desc: `Yes, make it: BigNumber.sum(1, 2)`,
                     output: `BigNumber.sum(1, 2);`
@@ -212,8 +211,7 @@ function makeTests() {
                     desc: 'No, make it: `${1}${2}`',
                     output: '`${1}${2}`;'
                   }
-                ]
-              }
+                ])
             ]
           },
           {
