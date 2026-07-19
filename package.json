@@ -22,7 +22,7 @@
     "email": "bugs+big-number-rules@conans.co.uk"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=18.18.0"
   },
   "main": "lib/index.js",
   "files": [
