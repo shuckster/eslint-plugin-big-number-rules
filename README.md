@@ -46,6 +46,18 @@ Recommended rules will `warn` about everything:
 }
 ```
 
+### Flat config (ESLint 9+)
+
+```js
+// eslint.config.js
+const bigNumberRules = require('eslint-plugin-big-number-rules')
+
+module.exports = [
+  bigNumberRules.configs['flat/recommended']
+  // …your other configs
+]
+```
+
 "Everything" means this:
 
 ```json

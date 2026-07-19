@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-07-19
+
+### Added
+
+- `peerDependencies.eslint`: `^8.57.0 || ^9.0.0 || ^10.0.0`
+- Flat recommended config: `configs['flat/recommended']` for ESLint 9+
+- `plugin.meta` (`name`, `version`) for ESLint 9+ plugin conventions
+- Upgrade harness tests (plugin smoke, match-iz fall-through contracts, deprecation baseline)
+
+### Changed
+
+- Runtime deps: `match-iz` ^5.1.0, `sift-r` ^1.5.0 (visitor handlers use `otherwise()` for match-iz v5)
+- Rules use `context.sourceCode.getText` / `getAncestors` / `getScope` (ESLint 9-ready)
+- `engines.node`: `>=18.18.0`
+- Dev ESLint 9 + project `eslint.config.js` (flat); removed `.eslintrc`
+- Dev tooling: nodemon 3, dedent 1; dropped `glob` (fixtures listed via `fs.readdir`)
+
+### Fixed
+
+- match-iz v5 no longer throws on non-matching AST visitors (circular `JSON.stringify` path)
+
 ## [2.2.0] - 2023-04-12
 
 ### Updated
