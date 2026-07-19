@@ -26,16 +26,25 @@ const suites = [
 ]
 
 const { makeTests: makeIgnoreOperatorsTests } = require('./ignore-operators')
+const { runPluginSmokeTests } = require('./plugin-smoke')
+const { runUpgradeContracts } = require('./upgrade-contracts')
 
 let errorCode = 0
 
 function main() {
-  loadJsonFile(path.join(configsPath, 'default.json'))
+  Promise.resolve()
+    .then(runPluginSmokeTests)
+    .then(runUpgradeContracts)
+    .then(() => loadJsonFile(path.join(configsPath, 'default.json')))
     .then(testAllSuitesAgainstEslintConfig)
     .then(logWhenDoneWith())
     .then(runTestSuitesAgainstCustomEslintConfigs)
     .then(runIgnoreOperatorsTests)
     .then(logWhenDoneWith({ settings: { 'big-number-rules': { construct: 'BigNumber (unsafelyIgnoreSuggestionsForOperators)' } } }))
+    .catch(err => {
+      errorCode = 1
+      console.error(err)
+    })
     .finally(() => {
       console.log(new Date().toTimeString())
       process.exit(errorCode)
