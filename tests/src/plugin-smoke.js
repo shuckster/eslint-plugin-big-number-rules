@@ -39,14 +39,33 @@ function runPluginSmokeTests() {
   }
 
   assert.ok(plugin.configs?.recommended, 'configs.recommended is present')
+  assert.ok(
+    plugin.configs?.['flat/recommended'],
+    'configs["flat/recommended"] is present for ESLint 9+'
+  )
+  assert.ok(plugin.meta?.name, 'plugin.meta.name is present')
+
   const recommendedRuleIds = Object.keys(plugin.configs.recommended.rules || {})
+  const flatRecommendedRuleIds = Object.keys(
+    plugin.configs['flat/recommended'].rules || {}
+  )
   for (const name of EXPECTED_RULES) {
     const id = `big-number-rules/${name}`
     assert.ok(
       recommendedRuleIds.includes(id),
       `recommended config enables ${id}`
     )
+    assert.ok(
+      flatRecommendedRuleIds.includes(id),
+      `flat/recommended config enables ${id}`
+    )
   }
+
+  assert.strictEqual(
+    plugin.configs['flat/recommended'].plugins?.['big-number-rules'],
+    plugin,
+    'flat/recommended plugins self-reference the plugin object'
+  )
 
   // Runtime deps must resolve (guards dual package / exports map breakage)
   const matchIz = require('match-iz')
