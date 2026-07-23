@@ -39,8 +39,8 @@
     "build:all": "echo 'No build process'"
   },
   "dependencies": {
-    "match-iz": "^5.1.0",
-    "sift-r": "^1.5.0"
+    "match-iz": "^5.1.1",
+    "sift-r": "^1.5.1"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0"
